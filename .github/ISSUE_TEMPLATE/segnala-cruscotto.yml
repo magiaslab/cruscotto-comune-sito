@@ -1,0 +1,54 @@
+name: Segnala un cruscotto
+description: Aggiungere un cruscotto comunale all’elenco e alla mappa
+title: "[Cruscotto] "
+labels: []
+body:
+  - type: input
+    id: comune
+    attributes:
+      label: Comune
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL del cruscotto
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: stato
+    attributes:
+      label: Stato
+      options:
+        - Pubblico
+        - In anteprima
+    validations:
+      required: true
+  - type: dropdown
+    id: come
+    attributes:
+      label: Come è stato realizzato
+      options:
+        - Fork del template
+        - Classe o PCTO
+        - Progetto civico personale
+        - Con l’ente o per l’ente
+        - Altro
+    validations:
+      required: true
+  - type: input
+    id: chi
+    attributes:
+      label: Chi l’ha realizzato
+      description: Nome, scuola, associazione o ente. Niente dati di minori.
+    validations:
+      required: true
+  - type: input
+    id: istat
+    attributes:
+      label: Codice ISTAT (opzionale)
+  - type: textarea
+    id: note
+    attributes:
+      label: Note

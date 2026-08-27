@@ -154,7 +154,9 @@ export function LandingHome() {
                   .join(" e ")}`
               : ""}
             . Per l’ente ci sono testi da copiare; per tutti, una cronologia di
-            quello che è cambiato.
+            quello che è cambiato. Per segnalare un cruscotto già fatto: form su{" "}
+            <Link href="/comuni">Comuni</Link>. Per un’idea sul sito:{" "}
+            <Link href="/suggerisci">Suggerisci</Link>.
           </p>
           <div className="flex flex-wrap gap-3">
             <Cta href="/comuni">Mappa dei comuni</Cta>

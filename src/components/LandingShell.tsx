@@ -157,6 +157,11 @@ export function LandingShell({ children }: { children: ReactNode }) {
           </div>
           <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">
             <li>
+              <Link href="/suggerisci" className="underline-offset-2 hover:underline">
+                Suggerisci
+              </Link>
+            </li>
+            <li>
               <Link href="/comuni" className="underline-offset-2 hover:underline">
                 Comuni
               </Link>

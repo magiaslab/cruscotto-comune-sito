@@ -9,6 +9,7 @@ import {
   type CruscottoStatus,
 } from "@/lib/cruscotti-rete";
 import { AUTHOR } from "@/lib/product";
+import { SegnalaCruscottoForm } from "@/components/SegnalaCruscottoForm";
 
 function statusLabel(status: CruscottoStatus) {
   return status === "online" ? "Pubblico" : "In sviluppo";
@@ -83,11 +84,23 @@ export function ComuniContent() {
         </>
       ) : null}
 
+      <h2 className="guide-h2">Segnala un cruscotto</h2>
+      <p>
+        Stesso meccanismo della pagina{" "}
+        <Link href="/suggerisci">Suggerisci</Link> su questo minisito (e di
+        Partecipa su San Vincenzo): un wizard, poi una issue pubblica su GitHub.
+        Dopo un controllo il comune entra in elenco e sulla mappa. Chi l’ha
+        fatto e come è stato realizzato restano nella segnalazione.
+      </p>
+      <SegnalaCruscottoForm />
+
       <h2 className="guide-h2">Vuoi il tuo?</h2>
       <p>
         In dieci minuti: <Link href="/guida">guida lampo</Link>. Passo passo,
         anche se non programmi: <Link href="/riusa">Porta nel tuo comune</Link>.
-        Se preferisci una mano diretta, scrivi a{" "}
+        Un’idea sul minisito o sul template:{" "}
+        <Link href="/suggerisci">Suggerisci</Link>. Se preferisci una mano
+        diretta, scrivi a{" "}
         <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>.
       </p>
     </LandingDoc>

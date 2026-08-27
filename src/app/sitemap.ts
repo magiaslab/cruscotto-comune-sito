@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/fonti",
     "/menzioni",
     "/sostieni",
+    "/suggerisci",
   ];
   const base = paths.map((path, i) => ({
     url: `${SITE.url}${path === "/" ? "" : path}`,
