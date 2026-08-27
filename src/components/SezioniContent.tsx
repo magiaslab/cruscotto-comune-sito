@@ -143,7 +143,7 @@ export function SezioniContent({
             ISPRA, Protezione civile, INGV: arrivano con il codice ISTAT.
           </li>
           <li>
-            <strong>Modulo da attivare</strong> — nel template, ma ha senso
+            <strong>Si attiva se serve</strong> — nel template, ma ha senso
             solo se il comune ha quei dati. Senza spiagge, Balneazione resta
             spenta.
           </li>
