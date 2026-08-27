@@ -16,7 +16,7 @@ export function SostieniContent() {
     <LandingDoc
       kicker="Supporto"
       title="Un caffè per tenere online il progetto"
-      lede="Il cruscotto non ha un budget pubblico. Un caffè volontario aiuta a pagare hosting e dominio. Non è una donazione a un Comune e non cambia i numeri che leggi."
+      lede="Non c’è un budget pubblico. Un caffè volontario aiuta a pagare hosting e dominio. Non è una donazione a un Comune e non cambia i numeri che leggi."
     >
       <div className="not-prose grid gap-4 lg:grid-cols-2">
         <article className="guide-card">
@@ -29,8 +29,8 @@ export function SostieniContent() {
             Offri un caffè
           </h2>
           <p className="mb-0 mt-2 text-sm leading-relaxed text-[var(--pa-muted)]">
-            Il sostegno va a {AUTHOR.name}, che tiene in vita template, minisito
-            e primo esemplare nel tempo libero. Serve a coprire le spese
+            Il sostegno va a me, {AUTHOR.name}: tengo in vita template, questo
+            sito e San Vincenzo nel tempo libero. Serve a coprire le spese
             tecniche, non un ente locale.
           </p>
           <a
@@ -54,7 +54,7 @@ export function SostieniContent() {
             A cosa serve
           </h2>
           <ul className="mb-0 mt-3 list-disc space-y-1.5 pl-5 text-sm text-[var(--pa-ink)]">
-            <li>Hosting e dominio del minisito e del primo esemplare</li>
+            <li>Hosting e dominio di questo sito e di San Vincenzo</li>
             <li>Compute per build, cache e aggiornamenti dati</li>
             <li>Tempo per tenere aperte le fonti open data</li>
           </ul>
@@ -96,7 +96,7 @@ export function SostieniContent() {
             href="/riusa"
             className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold"
           >
-            Porta nel tuo comune
+            Apri la guida al riuso
           </Link>
         </li>
         <li className="guide-card">

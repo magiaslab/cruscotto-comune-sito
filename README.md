@@ -1,11 +1,12 @@
-# Cruscotto Comune — minisito
+# Cruscotto Comune — sito del progetto
 
-Strumento di **divulgazione e hub** dei progetti, su
-**https://www.cruscottocomune.it**.
+**https://www.cruscottocomune.it**
 
-Questo repo **non** è il codice da forkare. Il template vuoto della dashboard è
+Qui stanno la guida, i cruscotti già online, il percorso scuola e il kit
+per l’ente. Questo repository non è il codice da copiare per un nuovo
+comune: quello è il template
 [magiaslab/cruscotto-comune](https://github.com/magiaslab/cruscotto-comune).
-I cruscotti già esistenti sono tre; il primo è
+Il primo cruscotto in produzione è
 [Cruscotto San Vincenzo](https://www.cruscottosanvincenzo.it).
 
 ## Avvio locale
@@ -39,4 +40,4 @@ Apex in redirect verso `www`.
 
 ## Pagine
 
-`/`, `/progetto`, `/comuni`, `/riusa`, `/scuola`, `/guida`, `/kit-ente`, `/novita`, `/fonti`, `/menzioni`, `/suggerisci`, `/sostieni` (alias `/supporto`). `/partecipa` reindirizza a `/suggerisci`.
+`/`, `/progetto`, `/comuni`, `/riusa`, `/scuola`, `/guida`, `/kit-ente`, `/novita`, `/sezioni`, `/fonti`, `/menzioni`, `/suggerisci`, `/sostieni` (alias `/supporto`). `/partecipa` reindirizza a `/suggerisci`.

@@ -34,8 +34,8 @@ export const CRUSCOTTI_RETE: CruscottoRete[] = [
     origin: true,
     lat: 43.1006,
     lng: 10.5417,
-    tagline: "Il primo cruscotto: costa livornese, porto e dati aperti AgID.",
-    note: "Progetto originale di Alessandro Cipriani. Farmacie, DAE, treni, meteo, finanza e moduli locali (porto, balneazione, bot Telegram).",
+    tagline: "Costa livornese, porto, farmacie, treni e i dati aperti di AgID.",
+    note: "Il primo, di Alessandro Cipriani. Ha anche pezzi locali — webcam, spiagge, bot Telegram — che altri comuni non devono copiare.",
   },
   {
     id: "campiglia-marittima",
@@ -48,8 +48,8 @@ export const CRUSCOTTI_RETE: CruscottoRete[] = [
     ordine: 2,
     lat: 43.06,
     lng: 10.6144,
-    tagline: "Il secondo cruscotto, sulla Costa degli Etruschi.",
-    note: "Stesso modello, adattato al Comune di Campiglia Marittima: KPI nazionali, servizi utili e sezioni territoriali.",
+    tagline: "Sulla Costa degli Etruschi, con i dati del proprio territorio.",
+    note: "Stesso tipo di cruscotto, configurato sul Comune di Campiglia Marittima.",
   },
   {
     id: "bibbiena",
@@ -62,8 +62,8 @@ export const CRUSCOTTI_RETE: CruscottoRete[] = [
     ordine: 3,
     lat: 43.6975,
     lng: 11.8147,
-    tagline: "Fork in lavorazione nel Casentino, ancora su anteprima Vercel.",
-    note: "Comune interno (niente porto né balneazione). L’indirizzo attuale è una preview: il dominio definitivo arriverà a lavoro finito.",
+    tagline: "Nel Casentino, ancora su un indirizzo provvisorio Vercel.",
+    note: "Comune interno, quindi niente porto né balneazione. Il dominio definitivo arriverà a lavoro finito.",
   },
 ];
 
@@ -115,11 +115,11 @@ export function getAltriCruscotti(): CruscottoRete[] {
   );
 }
 
-/** «tre cruscotti già esistenti. Il primo è San Vincenzo» */
+/** «tre cruscotti. Il primo è quello di San Vincenzo» */
 export function fraseCruscottiEsistenti(): string {
   const n = countCruscottiEsistenti();
   const lettere = countCruscottiEsistentiInLettere();
   const primo = getPrimoCruscotto();
-  const nome = n === 1 ? "cruscotto già esistente" : "cruscotti già esistenti";
-  return `${lettere} ${nome}. Il primo è ${primo.nome}`;
+  const nome = n === 1 ? "cruscotto" : "cruscotti";
+  return `${lettere} ${nome}. Il primo è quello di ${primo.nome}`;
 }

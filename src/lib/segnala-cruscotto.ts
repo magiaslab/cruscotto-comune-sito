@@ -37,7 +37,7 @@ export type SegnalaPayload = {
 };
 
 export const SEGNALA_COME_LABEL: Record<SegnalaCome, string> = {
-  template: "Fork del template",
+  template: "Dal template",
   scuola: "Classe o PCTO",
   civico: "Progetto civico personale",
   ente: "Con l’ente o per l’ente",
@@ -45,7 +45,7 @@ export const SEGNALA_COME_LABEL: Record<SegnalaCome, string> = {
 };
 
 export const SEGNALA_COME_HINT: Record<SegnalaCome, string> = {
-  template: "Partito da magiaslab/cruscotto-comune, configurato sul comune.",
+  template: "Partito da magiaslab/cruscotto-comune, configurato sul comune (un fork: una copia del template sul proprio GitHub).",
   scuola: "Realizzato a scuola, nel percorso didattico o in un PCTO.",
   civico: "Messo online da un cittadino, un’associazione o un gruppo.",
   ente: "L’amministrazione ha collaborato o ospita il sito.",
@@ -70,13 +70,13 @@ export const SEGNALA_COPY = {
   chiLabel: "Chi l’ha realizzato",
   chiHint: "Nome, scuola, associazione o ente. Niente dati di minori.",
   comeTestoLabel: "Come (opzionale)",
-  comeTestoHint: "Due righe su fork, deploy, classe, anno scolastico.",
+  comeTestoHint: "Due righe su come è stato fatto: copia del template, classe, anno scolastico.",
   noteLabel: "Note per la mappa (opzionale)",
   contattoLabel: "Contatto (opzionale)",
   contattoHint: "Email o profilo GitHub, solo se vuoi una risposta.",
   riepilogo: "Riepilogo",
   disclaimer:
-    "Inviando, il testo diventa una issue pubblica sul repository GitHub di questo minisito. Non inserire dati personali di terzi, soprattutto di minori.",
+    "Inviando, il testo diventa una issue pubblica sul repository GitHub di questo sito. Non inserire dati personali di terzi, soprattutto di minori.",
   invia: "Invia su GitHub",
   invioInCorso: "Invio in corso…",
   avanti: "Avanti",

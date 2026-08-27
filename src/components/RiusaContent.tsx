@@ -108,12 +108,12 @@ export function RiusaContent() {
           Cruscotto Italia (AgID)
         </a>
         , che è pubblico: non paghi e non chiedi un permesso. Il codice da
-        duplicare è il template vuoto, non questo minisito (è l’hub) e non i
-        cruscotti già esistenti. Il primo è San Vincenzo: si legge, non si forka.
+        copiare è il template su GitHub, non questo sito e non i cruscotti già
+        online. San Vincenzo si consulta come esempio.
       </p>
       <p>
-        Hai dieci minuti? C’è una{" "}
-        <Link href="/guida">versione lampo</Link>. Esempi già online:{" "}
+        Preferisci una versione più corta? C’è la{" "}
+        <Link href="/guida">guida in sei passi</Link>. Esempi già online:{" "}
         <Link href="/comuni">Comuni</Link>.
       </p>
 
@@ -125,7 +125,7 @@ export function RiusaContent() {
           className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-[var(--pa-border)] bg-white px-3 py-2 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:border-[var(--pa-primary)]"
         >
           <GitHubMark />
-          Duplica su GitHub
+          Crea una copia su GitHub
         </a>
         <a
           href={vercel}
@@ -161,7 +161,7 @@ export function RiusaContent() {
           name="GitHub"
           href="https://github.com/signup"
           need="Obbligatorio"
-          forWhat="Qui vive il codice. Lo usi anche per duplicare il progetto."
+          forWhat="Qui sta il codice. Lo usi per creare una copia del template."
           icon={<GitHubMark size={22} />}
         />
         <AccountCard
@@ -201,8 +201,8 @@ export function RiusaContent() {
         />
       </div>
 
-      <h2 className="guide-h2">Dal browser, senza installare nulla</h2>
-      <p>Questo è il percorso pensato per chi non programma. Tutto si fa nel browser.</p>
+      <h2 className="guide-h2">Nel browser</h2>
+      <p>Se non programmi, fai tutto da GitHub e Vercel, senza installare nulla sul computer.</p>
       <ol className="not-prose step-list mb-6">
         <Step n={1} title="Apri un account GitHub">
           <p className="m-0">
@@ -240,7 +240,7 @@ export function RiusaContent() {
             </a>{" "}
             con GitHub. Poi <strong>Add New → Project</strong>, scegli la copia
             che hai appena creato e premi <strong>Deploy</strong>. Non compilare
-            variabili: per partire non servono. Dopo qualche minuto hai un
+            variabili d’ambiente: per partire non servono. Dopo qualche minuto hai un
             indirizzo del tipo <code>qualcosa.vercel.app</code>.
           </p>
         </Step>
@@ -290,8 +290,8 @@ export function RiusaContent() {
           <p className="m-0">
             Apri <code>https://TUO-SITO.vercel.app/api/kpi</code>. Deve
             comparire il nome del tuo comune, non «San Vincenzo». Se vedi ancora
-            un altro ente, il codice ISTAT non è partito: aspetta il nuovo
-            deploy oppure ricontrolla il file.
+            un altro ente, il codice ISTAT non è partito: aspetta che Vercel
+            rifaccia il sito, oppure ricontrolla il file.
           </p>
         </Step>
         <Step n={6} title="(Facoltativo) Il tuo dominio">

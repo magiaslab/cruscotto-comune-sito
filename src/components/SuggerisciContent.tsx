@@ -20,13 +20,13 @@ export function SuggerisciContent() {
           </p>
           <ul className="mb-0 mt-3 list-disc space-y-1.5 pl-5 text-sm text-[var(--pa-ink)]">
             <li>
-              Template da forkare:{" "}
+              Template:{" "}
               <a href={githubTemplate} target="_blank" rel="noopener noreferrer">
                 magiaslab/cruscotto-comune
               </a>
             </li>
             <li>
-              Hub e documentazione: questo sito. Issue:{" "}
+              Questo sito. Issue:{" "}
               <a href={githubSito} target="_blank" rel="noopener noreferrer">
                 magiaslab/cruscotto-comune-sito
               </a>

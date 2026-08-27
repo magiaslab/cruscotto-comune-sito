@@ -95,20 +95,19 @@ export function SezioniContent({
 }) {
   return (
     <LandingDoc
-      kicker="Catalogo"
+      kicker="Sezioni"
       title="Sezioni del cruscotto"
-      lede="Ogni pagina del cruscotto mostra un pezzo di territorio. Qui elenchiamo i dati che ci trovi e le fonti a cui sono agganciati. Gli screenshot arrivano dal cruscotto di San Vincenzo, il primo in produzione. Il nucleo è lo stesso del template; le sezioni opzionali e gli esempi dipendono dal comune."
+      lede="Ogni pagina mostra un pezzo di territorio. Qui elenchiamo cosa ci trovi e da dove arrivano i numeri. Gli screenshot sono di San Vincenzo, il primo cruscotto online."
       wide
     >
       <section>
         <p>
-          Aprire il cruscotto in produzione:{" "}
+          Apri il cruscotto in produzione:{" "}
           <a href={SITE.demo} target="_blank" rel="noopener noreferrer">
             cruscottosanvincenzo.it
           </a>
-          . Per replicare il nucleo su un altro comune:{" "}
-          <Link href="/progetto">fork del template</Link>. Le fonti complete,
-          con licenza e pagina ufficiale, stanno in{" "}
+          . Per farne uno su un altro comune, la guida è in{" "}
+          <Link href="/riusa">Riuso</Link>. Fonti complete, con licenza:{" "}
           <Link href="/fonti">Fonti</Link>.
         </p>
         <p>
@@ -137,21 +136,22 @@ export function SezioniContent({
       ))}
 
       <section>
-        <h2 className="text-xl font-bold">Come leggere gli ambiti</h2>
+        <h2 className="text-xl font-bold">I tre ambiti</h2>
         <ul>
           <li>
-            <strong>Nucleo nazionale</strong> — nel template da forkare. Dati
-            ISTAT, DAIT, OpenAPI, ISPRA, Protezione civile, INGV.
+            <strong>Dati nazionali</strong> — nel template. ISTAT, DAIT, AgID,
+            ISPRA, Protezione civile, INGV: arrivano con il codice ISTAT.
           </li>
           <li>
-            <strong>Modulo opzionale</strong> — nel template, ma si attiva solo
-            se il comune ha i dataset. Senza spiagge non ha senso Balneazione.
+            <strong>Modulo da attivare</strong> — nel template, ma ha senso
+            solo se il comune ha quei dati. Senza spiagge, Balneazione resta
+            spenta.
           </li>
           <li>
-            <strong>Su San Vincenzo (0.3.0)</strong> — adattatori toscani o
-            pagine nate sul primo cruscotto (SIR, ARRR, Geoscopio, confronto tra
-            comuni). Il changelog di San Vincenzo lo dice: il template non è
-            ancora allineato su tutto.
+            <strong>Per ora su San Vincenzo</strong> — adattatori toscani o
+            pagine nate sul primo cruscotto (SIR, ARRR, Geoscopio, confronto
+            tra comuni). Il changelog di San Vincenzo lo dice: il template non
+            è ancora allineato su tutto.
           </li>
         </ul>
         <p>

@@ -20,7 +20,7 @@ export function BinarioCard({
         {binario.sottotitolo}
       </p>
       <p className="mb-0 mt-3 text-sm leading-relaxed text-[var(--pa-ink)]">
-        <strong>Prodotto finale.</strong> {binario.prodottoFinale}
+        <strong>Alla fine.</strong> {binario.prodottoFinale}
       </p>
       <ul className="mb-0 mt-3 list-disc pl-5 text-sm text-[var(--pa-muted)]">
         {binario.destinatari.map((d) => (

@@ -10,16 +10,16 @@ export function FontiContent() {
     <LandingDoc
       kicker="Fonti"
       title="Da dove arrivano i dati"
-      lede="Il cruscotto non inventa numeri: li legge da API e file aperti. Qui c’è il catalogo, distinto tra nucleo nazionale e moduli da accendere."
+      lede="Il cruscotto non inventa numeri: li legge da API e file aperti. Qui c’è l’elenco, diviso tra fonti nazionali e moduli da attivare."
     >
       <section>
         <h2 className="text-xl font-bold">Regola pratica</h2>
         <p>
           Se una fonte è <strong>nazionale</strong> basta il codice ISTAT (e
-          magari catastale / coordinate). Se è <strong>opzionale</strong> va
-          acceso il flag in <code>features</code> e, se serve, l’URL della tua
-          Regione o del tuo gestore. Non copiare path, webcam o spiagge di un
-          altro comune.
+          magari catastale o coordinate). Se è <strong>opzionale</strong> va
+          acceso il flag in <code>features</code> e, se serve, l’indirizzo della
+          tua Regione o del tuo gestore. Non copiare path, webcam o spiagge di
+          un altro comune.
         </p>
         <p>
           Licenze e attribuzioni d’uso: tab{" "}
@@ -30,7 +30,7 @@ export function FontiContent() {
       </section>
 
       <section>
-        <h2 className="text-xl font-bold">Nucleo nazionale</h2>
+        <h2 className="text-xl font-bold">Fonti nazionali</h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
             <thead>
@@ -59,7 +59,7 @@ export function FontiContent() {
       </section>
 
       <section>
-        <h2 className="text-xl font-bold">Moduli opzionali</h2>
+        <h2 className="text-xl font-bold">Moduli da attivare</h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
             <thead>

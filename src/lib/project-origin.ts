@@ -1,5 +1,5 @@
 /**
- * Crediti del primo cruscotto (San Vincenzo) e del template da forkare.
+ * Crediti del primo cruscotto (San Vincenzo) e del template.
  * Nei fork NON vanno modificati: restano in Attribuzioni e footer.
  * Il maintainer del fork si indica in `config/comune.json` → `fork`.
  */
@@ -10,7 +10,7 @@ export const PROJECT_ORIGIN = {
     name: "Alessandro Cipriani",
     email: "cipriani.alessandro@gmail.com",
   },
-  /** Template vuoto da forkare. Non è il repo di San Vincenzo. */
+  /** Template. Non è il repo di San Vincenzo. */
   github_repo_url: SITE.github,
   /** Primo cruscotto già esistente (sito in produzione). */
   site_url: SITE.demo,

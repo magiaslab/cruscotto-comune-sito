@@ -58,7 +58,7 @@ export function ComuniContent() {
       wide
       kicker="Comuni"
       title="I cruscotti già esistenti"
-      lede={`Oggi ${fraseCruscottiEsistenti()}. Ogni comune ha il suo sito, con i dati del proprio territorio. Qui li trovi sulla mappa e in elenco, così puoi vedere il risultato prima di replicarlo.`}
+      lede={`Oggi ${fraseCruscottiEsistenti()}. Ogni comune ha il suo sito, con i dati del proprio territorio. Qui li trovi sulla mappa e in elenco.`}
     >
       <ComuniMap items={CRUSCOTTI_RETE} />
 
@@ -86,19 +86,17 @@ export function ComuniContent() {
 
       <h2 className="guide-h2">Segnala un cruscotto</h2>
       <p>
-        Stesso meccanismo della pagina{" "}
-        <Link href="/suggerisci">Suggerisci</Link> su questo minisito (e di
-        Partecipa su San Vincenzo): un wizard, poi una issue pubblica su GitHub.
-        Dopo un controllo il comune entra in elenco e sulla mappa. Chi l’ha
-        fatto e come è stato realizzato restano nella segnalazione.
+        Stesso meccanismo di{" "}
+        <Link href="/suggerisci">Suggerisci</Link>: un breve percorso, poi una
+        issue pubblica su GitHub. Dopo un controllo il comune entra in elenco e
+        sulla mappa.
       </p>
       <SegnalaCruscottoForm />
 
       <h2 className="guide-h2">Vuoi il tuo?</h2>
       <p>
-        In dieci minuti: <Link href="/guida">guida lampo</Link>. Passo passo,
-        anche se non programmi: <Link href="/riusa">Porta nel tuo comune</Link>.
-        Un’idea sul minisito o sul template:{" "}
+        La guida breve è in <Link href="/guida">Guida</Link>. Passo passo:{" "}
+        <Link href="/riusa">Riuso</Link>. Un’idea su questo sito:{" "}
         <Link href="/suggerisci">Suggerisci</Link>. Se preferisci una mano
         diretta, scrivi a{" "}
         <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>.

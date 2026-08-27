@@ -419,7 +419,7 @@ export const LEZIONI: Lezione[] = [
         titolo: "Mini-lezione",
         durataMinuti: 20,
         consegna:
-          "Repository: una cartella con dentro tutta la storia delle sue modifiche. Fork: una copia che ricorda da dove viene. Deploy: mettere il programma su un computer sempre acceso e collegato a internet. Template: il repository di Cruscotto Comune non è il cruscotto di San Vincenzo svuotato. È un progetto pensato per essere riusato.",
+          "Repository: una cartella con dentro tutta la storia delle sue modifiche. Fork: una copia che ricorda da dove viene. Deploy: mettere il programma su un computer sempre acceso e collegato a internet. Template: il repository di Cruscotto Comune non è San Vincenzo svuotato. È fatto per essere adattato a un altro comune.",
       },
       {
         titolo: "Attività 1 — Il fork",
@@ -446,8 +446,8 @@ export const LEZIONI: Lezione[] = [
     ],
     digcomp: ["area 3.1", "area 5"],
     descrizione:
-      "Fork del template, deploy su Vercel, smoke test sull'endpoint /api/kpi. Zero righe di codice. Account del docente o della scuola.",
-    intro: "Dal fork al sito online. Questa è l'unica lezione del percorso che va provata prima. Fai il fork e il deploy a casa, fino in fondo, poi cancella tutto e rifallo in classe. Lo studente impara che cos'è un repository, un fork, un deploy, e verifica che un servizio funzioni interrogando direttamente un endpoint. Il cruscotto appena pubblicato è ancora generico: è il ponte per la lezione 6. Account GitHub e Vercel del docente, creati prima. Durata: 120 minuti.",
+      "Copia del template, pubblicazione su Vercel, controllo su /api/kpi. Non si scrive codice. Account del docente o della scuola.",
+    intro: "Dalla copia del template al sito online. Questa è l'unica lezione da provare prima, a casa: fork (una copia sul tuo GitHub), pubblicazione su Vercel, poi si cancella tutto e si rifà in classe. Lo studente vede che cos'è un repository, un fork, un deploy, e controlla che un servizio risponda aprendo /api/kpi. Il cruscotto appena pubblicato è ancora generico: è il ponte per la lezione 6. Account GitHub e Vercel del docente, creati prima. Durata: 120 minuti.",
     materialiLezione:
       "Proiettore · un dispositivo per gruppo · scheda studente 5 · guida al riuso · registrazione di riserva.",
     chiusura:
@@ -763,7 +763,7 @@ export const LEZIONI: Lezione[] = [
     digcomp: ["area 2.1", "area 3.1"],
     descrizione:
       "Data story in sei mosse, presentazione di cinque minuti a gruppo, cruscotto pubblicato, segnalazione alla vetrina delle classi.",
-    intro: "Raccontare i dati. Ogni data story funziona in sei mosse, e nell'ordine: domanda, dato, contesto, confronto, limite, proposta. Dire quello che non si sa aumenta la credibilità, non la riduce. Ogni gruppo prepara cinque minuti su un tema del cruscotto. Prodotto finale: presentazione di 5 minuti a gruppo, cruscotto pubblicato e configurato sul proprio comune, indirizzo inviato per la vetrina delle classi. Durata: 120 minuti.",
+    intro: "Raccontare i dati. Ogni data story funziona in sei mosse, e nell'ordine: domanda, dato, contesto, confronto, limite, proposta. Dire quello che non si sa aumenta la credibilità, non la riduce. Ogni gruppo prepara cinque minuti su un tema del cruscotto. Alla fine: presentazione di 5 minuti a gruppo, cruscotto pubblicato e configurato sul proprio comune, indirizzo inviato per la vetrina delle classi. Durata: 120 minuti.",
     materialiLezione:
       "Proiettore · rubrica di valutazione distribuita alla classe · scheda studente 8 · il cruscotto della classe.",
     chiusura:

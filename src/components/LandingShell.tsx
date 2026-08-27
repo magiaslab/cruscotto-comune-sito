@@ -109,7 +109,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
               rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:bg-[var(--pa-surface-soft)]"
             >
-              Demo
+              San Vincenzo
             </a>
             <a
               href={fork}
@@ -118,7 +118,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
               className="inline-flex min-h-11 items-center gap-1.5 rounded-lg bg-[var(--pa-primary)] px-3 text-sm font-bold text-white no-underline hover:bg-[var(--pa-primary-hover)]"
             >
               <GitHubMark size={16} />
-              Fork su GitHub
+              Copia su GitHub
             </a>
           </nav>
         </div>
@@ -134,8 +134,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
           <div className="max-w-xl">
             <p className="m-0 text-sm font-bold">{product}</p>
             <p className="mb-0 mt-2 text-xs leading-relaxed text-[var(--pa-footer-muted)] sm:text-sm">
-              Strumento di divulgazione e hub dei progetti, di {AUTHOR.name}.
-              Template da forkare:{" "}
+              Un progetto di {AUTHOR.name}. Template su{" "}
               <a
                 href={github}
                 target="_blank"
@@ -169,7 +168,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
             </li>
             <li>
               <Link href="/guida" className="underline-offset-2 hover:underline">
-                Guida in 10 minuti
+                Guida
               </Link>
             </li>
             <li>
