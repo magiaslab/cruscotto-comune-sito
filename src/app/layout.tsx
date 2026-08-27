@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Titillium_Web } from "next/font/google";
 import { LandingShell } from "@/components/LandingShell";
+import { fraseCruscottiEsistenti } from "@/lib/cruscotti-rete";
+import { clipMetaDescription } from "@/lib/meta";
 import { SITE } from "@/lib/product";
 import "./globals.css";
 
@@ -23,8 +25,9 @@ export const metadata: Metadata = {
     default: `${SITE.name} — ${SITE.tagline}`,
     template: `%s | ${SITE.name}`,
   },
-  description:
-    "Template open source per dashboard di dati aperti comunali italiane. Fork, Vercel, codice ISTAT.",
+  description: clipMetaDescription(
+    `${SITE.tagline}. Il template vuoto da forkare è su GitHub. Oggi ${fraseCruscottiEsistenti()}.`,
+  ),
   icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
 };
 

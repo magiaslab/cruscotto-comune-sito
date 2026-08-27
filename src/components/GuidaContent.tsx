@@ -96,7 +96,8 @@ export function GuidaContent() {
               magiaslab/cruscotto-comune
             </a>
             , premi <strong>Fork</strong>, conferma. Non toccare questo minisito
-            e non forkare San Vincenzo.
+            (è l’hub) e non forkare i cruscotti già esistenti: il primo è San
+            Vincenzo.
           </p>
         </Step>
         <Step n={3} minutes="3 minuti" title="Pubblica su Vercel">

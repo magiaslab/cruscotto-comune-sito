@@ -8,16 +8,19 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## Tre repo — non confonderli
+## Tre ruoli — non confonderli
 
 1. **Questo minisito** (`cruscotto-comune-sito`, https://www.cruscottocomune.it) è
-   l’hub di documentazione e divulgazione. Non è la dashboard. Non si forka.
+   lo strumento di **divulgazione e hub** dei progetti. Non è la dashboard. Non
+   si forka.
 2. **Il template vuoto** https://github.com/magiaslab/cruscotto-comune è la
    **dashboard** da forkare. Nei prompt (scuola, riuso, sandbox `/demo`)
    «dashboard», «cruscotto da costruire», fork e deploy puntano **qui**.
-3. **Gli esemplari già online** (primo: https://www.cruscottosanvincenzo.it) sono
-   progetti finiti. In classe si usano come oggetto di lettura (binario A), non
-   come codice da copiare.
+3. **I cruscotti già esistenti** sono tre al momento (catalogo in
+   `src/lib/cruscotti-rete.ts`). Il **primo** è
+   https://www.cruscottosanvincenzo.it/. Sono progetti finiti o in anteprima: in
+   classe si usano come oggetto di lettura (binario A), non come codice da
+   copiare. Non si forkano.
 
 ## Sezione /scuola — regole
 

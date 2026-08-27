@@ -18,7 +18,7 @@ export const NOVITA: NovitaVoce[] = [
   {
     data: "2026-08-27",
     titolo: "Minisito di progetto",
-    testo: "www.cruscottocomune.it è la vetrina: guida in italiano, comuni già nati, kit per l’ente e supporto. Il codice da forkare resta magiaslab/cruscotto-comune, non questo sito.",
+    testo: "www.cruscottocomune.it è lo strumento di divulgazione e l’hub dei progetti: guida, comuni già nati, kit per l’ente, scuola e supporto. Il template vuoto da forkare resta magiaslab/cruscotto-comune. I cruscotti già esistenti sono tre; il primo è San Vincenzo.",
     href: "/riusa",
     hrefLabel: "Porta nel tuo comune",
   },

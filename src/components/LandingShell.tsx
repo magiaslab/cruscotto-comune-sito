@@ -133,16 +133,8 @@ export function LandingShell({ children }: { children: ReactNode }) {
           <div className="max-w-xl">
             <p className="m-0 text-sm font-bold">{product}</p>
             <p className="mb-0 mt-2 text-xs leading-relaxed text-[var(--pa-footer-muted)] sm:text-sm">
-              Template open source di {AUTHOR.name}. Primo esemplare:{" "}
-              <a
-                href={demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-white underline underline-offset-2"
-              >
-                {getDemoLabel()}
-              </a>
-              . Codice:{" "}
+              Strumento di divulgazione e hub dei progetti, di {AUTHOR.name}.
+              Template da forkare:{" "}
               <a
                 href={github}
                 target="_blank"
@@ -150,6 +142,15 @@ export function LandingShell({ children }: { children: ReactNode }) {
                 className="font-semibold text-white underline underline-offset-2"
               >
                 GitHub
+              </a>
+              . Primo cruscotto:{" "}
+              <a
+                href={demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-white underline underline-offset-2"
+              >
+                {getDemoLabel()}
               </a>
               .
             </p>

@@ -169,7 +169,7 @@ export const DASHBOARD_TEMPLATE = {
   github: SITE.github,
   titolo: "Quale dashboard si forka",
   testo:
-    "La dashboard da costruire in classe è il template vuoto magiaslab/cruscotto-comune. Non si forka questo minisito e non si forka San Vincenzo. Il cruscotto di San Vincenzo si usa nel binario A come oggetto di lettura: è un esemplare già online, lo stesso programma con un'altra configurazione.",
+    "La dashboard da costruire in classe è il template vuoto magiaslab/cruscotto-comune. Non si forka questo minisito (è l'hub di divulgazione) e non si forkano i cruscotti già esistenti: oggi sono tre, il primo è San Vincenzo. San Vincenzo si usa nel binario A come oggetto di lettura: è un esemplare già online, lo stesso programma con un'altra configurazione.",
 };
 
 export const SCUOLA_LICENZA = {

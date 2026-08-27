@@ -1,9 +1,12 @@
 import { ComuniContent } from "@/components/ComuniContent";
+import { fraseCruscottiEsistenti } from "@/lib/cruscotti-rete";
+import { clipMetaDescription } from "@/lib/meta";
 
 export const metadata = {
   title: "Comuni",
-  description:
-    "Mappa e elenco dei cruscotti comunali già online: San Vincenzo, Campiglia Marittima, e i fork in lavorazione.",
+  description: clipMetaDescription(
+    `Mappa e elenco: oggi ${fraseCruscottiEsistenti()}. Ogni comune ha il suo sito, con i dati del proprio territorio.`,
+  ),
 };
 
 export default function Page() {

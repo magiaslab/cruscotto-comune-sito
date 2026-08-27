@@ -1,22 +1,46 @@
 import { LandingDoc } from "@/components/LandingDoc";
+import {
+  countCruscottiEsistentiInLettere,
+  fraseCruscottiEsistenti,
+  getPrimoCruscotto,
+} from "@/lib/cruscotti-rete";
 import { PROJECT_ORIGIN } from "@/lib/project-origin";
-import { getDemoLabel, getDemoUrl, getProductName } from "@/lib/product";
+import {
+  getDemoLabel,
+  getDemoUrl,
+  getProductName,
+  getTemplateGithubUrl,
+} from "@/lib/product";
 import Link from "next/link";
 
 export function ProgettoContent() {
   const product = getProductName();
+  const github = getTemplateGithubUrl();
+  const primo = getPrimoCruscotto();
   return (
     <LandingDoc
       kicker="Il progetto"
       title={product}
-      lede="Un template Next.js per pubblicare i dati aperti di un comune italiano, senza backend, senza database e senza dati copiati da un altro ente."
+      lede={`Questo minisito è lo strumento di divulgazione e l’hub dei progetti. Il template vuoto da forkare è su GitHub; oggi ${fraseCruscottiEsistenti()}.`}
     >
       <section>
-        <h2 className="text-xl font-bold">Cosa è</h2>
+        <h2 className="text-xl font-bold">Cosa è questo sito</h2>
         <p>
-          {product} è il codice <strong>generico</strong> da cui far partire un
-          nuovo cruscotto comunale. Legge l’identità da{" "}
-          <code>config/comune.json</code>, parla con l’MCP pubblico{" "}
+          {product} su questo dominio raccoglie i progetti, la guida al riuso, il
+          percorso scuola, il kit per l’ente e le fonti. Non è una dashboard e
+          non si forka.
+        </p>
+      </section>
+      <section>
+        <h2 className="text-xl font-bold">Il template da forkare</h2>
+        <p>
+          Il codice <strong>generico</strong> da cui far partire un nuovo
+          cruscotto comunale sta su{" "}
+          <a href={github} target="_blank" rel="noopener noreferrer">
+            {github.replace("https://", "")}
+          </a>
+          . Legge l’identità da <code>config/comune.json</code>, parla con l’MCP
+          pubblico{" "}
           <a href="https://cruscotto-italia.dati.gov.it/">Cruscotto Italia (AgID)</a>{" "}
           e con altre API aperte, e mostra una dashboard a sidebar (KPI, mappe,
           grafici).
@@ -24,6 +48,17 @@ export function ProgettoContent() {
         <p>
           Non è un prodotto multi-tenant: <strong>un deploy = un comune</strong>.
           Non è un sito istituzionale. È uno strumento civico indipendente.
+        </p>
+      </section>
+      <section>
+        <h2 className="text-xl font-bold">I cruscotti già esistenti</h2>
+        <p>
+          Oggi sono {countCruscottiEsistentiInLettere()}. Il primo è{" "}
+          <a href={getDemoUrl()} target="_blank" rel="noopener noreferrer">
+            {getDemoLabel()}
+          </a>{" "}
+          ({primo.nome}). L’elenco completo, con mappa, è nella pagina{" "}
+          <Link href="/comuni">Comuni</Link>.
         </p>
       </section>
       <section>
@@ -35,19 +70,19 @@ export function ProgettoContent() {
             canali ufficiali dell’ente.
           </li>
           <li>
-            Non è più il «fork con i dati di San Vincenzo da cancellare a mano».
+            Non è più il «fork con i dati di {primo.nome} da cancellare a mano».
             Quella istanza resta{" "}
             <a href={getDemoUrl()} target="_blank" rel="noopener noreferrer">
               {getDemoLabel()}
             </a>
-            , progetto finito sul proprio dominio.
+            , progetto finito sul proprio dominio: si legge, non si forka.
           </li>
         </ul>
       </section>
       <section>
         <h2 className="text-xl font-bold">Come è nato</h2>
         <p>
-          Il primo esemplare è il Cruscotto {PROJECT_ORIGIN.comune_demo}, realizzato
+          Il primo cruscotto è quello di {PROJECT_ORIGIN.comune_demo}, realizzato
           da{" "}
           <a href={`mailto:${PROJECT_ORIGIN.author.email}`}>
             {PROJECT_ORIGIN.author.name}
@@ -58,7 +93,9 @@ export function ProgettoContent() {
         <p>
           Il template da forkare è il passo successivo: stessa stack, stessa
           idea, <strong>nessun dato territoriale hardcoded</strong>, moduli
-          opzionali spenti di default. Questo minisito è solo la vetrina.
+          opzionali spenti di default. Questo minisito è lo strumento di
+          divulgazione e l’hub: indica il template e i {countCruscottiEsistentiInLettere()}{" "}
+          cruscotti già esistenti.
         </p>
       </section>
       <section>

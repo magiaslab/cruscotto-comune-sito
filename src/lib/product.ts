@@ -1,10 +1,11 @@
 export const SITE = {
   name: "Cruscotto Comune",
-  tagline: "Dashboard open data per qualsiasi comune italiano",
+  /** Ruolo di QUESTO minisito, non della dashboard. */
+  tagline: "Strumento di divulgazione e hub dei progetti",
   url: "https://www.cruscottocomune.it",
   /** Template vuoto da forkare: è questa la «dashboard» dei prompt. */
   github: "https://github.com/magiaslab/cruscotto-comune",
-  /** Primo esemplare già online. Non è il codice da forkare. */
+  /** Primo cruscotto già esistente. Non è il codice da forkare. */
   demo: "https://www.cruscottosanvincenzo.it",
   demoLabel: "Cruscotto San Vincenzo",
   bmc: "https://www.buymeacoffee.com/acipriani",

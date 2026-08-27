@@ -108,7 +108,8 @@ export function RiusaContent() {
           Cruscotto Italia (AgID)
         </a>
         , che è pubblico: non paghi e non chiedi un permesso. Il codice da
-        duplicare è il template, non questo minisito e non San Vincenzo.
+        duplicare è il template vuoto, non questo minisito (è l’hub) e non i
+        cruscotti già esistenti. Il primo è San Vincenzo: si legge, non si forka.
       </p>
       <p>
         Hai dieci minuti? C’è una{" "}
