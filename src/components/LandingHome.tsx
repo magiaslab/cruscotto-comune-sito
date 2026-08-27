@@ -71,15 +71,12 @@ export function LandingHome() {
             di San Vincenzo, moduli accendibili, fonti nazionali già pronte.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Cta href={fork} external>
-              <GitHubMark size={18} />
-              Fork su GitHub
-            </Cta>
+            <Cta href="/guida">Guida in 10 minuti</Cta>
             <Cta href="/riusa" variant="ghost">
               Guida al riuso
             </Cta>
-            <Cta href={demo} variant="ghost" external>
-              Demo: {getDemoLabel()}
+            <Cta href="/comuni" variant="ghost">
+              Comuni sulla mappa
             </Cta>
           </div>
         </div>
@@ -132,8 +129,29 @@ export function LandingHome() {
       <section className="border-y border-[var(--pa-border)] bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <h2 className="mb-2 text-2xl font-bold text-[var(--pa-ink)]">
-            Cosa è nazionale, cosa si accende
+            Comuni, kit e novità
           </h2>
+          <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
+            San Vincenzo e Campiglia Marittima sono già pubblici. Bibbiena è in
+            anteprima. Per l’ente ci sono testi da copiare; per tutti, una
+            cronologia di quello che è cambiato.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Cta href="/comuni">Mappa dei comuni</Cta>
+            <Cta href="/kit-ente" variant="ghost">
+              Kit ente
+            </Cta>
+            <Cta href="/novita" variant="ghost">
+              Novità
+            </Cta>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <h2 className="mb-2 text-2xl font-bold text-[var(--pa-ink)]">
+          Cosa è nazionale, cosa si accende
+        </h2>
           <p className="mb-8 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
             Un deploy = un comune. Compili il codice ISTAT e le coordinate: i
             KPI AgID arrivano da soli. Il resto è un interruttore.
@@ -184,7 +202,6 @@ export function LandingHome() {
               Catalogo completo delle fonti →
             </Link>
           </p>
-        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -221,6 +238,9 @@ export function LandingHome() {
         </ol>
         <div className="mt-6 flex flex-wrap gap-3">
           <Cta href="/riusa">Apri la guida completa</Cta>
+          <Cta href="/guida" variant="ghost">
+            In 10 minuti
+          </Cta>
           <Cta href={getVercelDeployUrl()} variant="ghost" external>
             <VercelMark size={16} />
             Deploy su Vercel
@@ -271,7 +291,7 @@ export function LandingHome() {
           primo esemplare. I fork possono (e devono) usare il proprio slug, non
           quello dell’autore.
         </p>
-        <Cta href="/sostieni">Pagina Sostieni</Cta>
+        <Cta href="/sostieni">Pagina Supporto</Cta>
       </section>
     </>
   );

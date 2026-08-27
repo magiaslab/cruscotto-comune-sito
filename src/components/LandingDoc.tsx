@@ -5,14 +5,20 @@ export function LandingDoc({
   title,
   lede,
   children,
+  wide = false,
 }: {
   kicker?: string;
   title: string;
   lede: string;
   children: ReactNode;
+  wide?: boolean;
 }) {
   return (
-    <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
+    <article
+      className={`guide-prose mx-auto px-4 py-10 sm:px-6 sm:py-14 ${
+        wide ? "max-w-5xl" : "max-w-3xl"
+      }`}
+    >
       {kicker ? (
         <p className="m-0 text-sm font-semibold uppercase tracking-wide text-[var(--pa-primary)]">
           {kicker}

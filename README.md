@@ -38,4 +38,4 @@ Apex in redirect verso `www`.
 
 ## Pagine
 
-`/`, `/progetto`, `/fonti`, `/riusa`, `/menzioni`, `/sostieni`.
+`/`, `/progetto`, `/comuni`, `/riusa`, `/guida`, `/kit-ente`, `/novita`, `/fonti`, `/menzioni`, `/sostieni` (alias `/supporto`).

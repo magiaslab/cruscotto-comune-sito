@@ -20,8 +20,11 @@ import { PROJECT_ORIGIN } from "@/lib/project-origin";
 
 const NAV: { href: string; label: string }[] = [
   { href: "/progetto", label: "Progetto" },
-  { href: "/fonti", label: "Fonti" },
+  { href: "/comuni", label: "Comuni" },
   { href: "/riusa", label: "Riuso" },
+  { href: "/kit-ente", label: "Kit ente" },
+  { href: "/novita", label: "Novità" },
+  { href: "/fonti", label: "Fonti" },
   { href: "/menzioni", label: "Menzioni" },
 ];
 
@@ -48,7 +51,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
                   href="/sostieni"
                   className="inline-flex min-h-11 items-center text-white underline-offset-2 hover:underline"
                 >
-                  Sostieni
+                  Supporto
                 </Link>
               ) : null}
               <a
@@ -152,6 +155,31 @@ export function LandingShell({ children }: { children: ReactNode }) {
           </div>
           <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">
             <li>
+              <Link href="/comuni" className="underline-offset-2 hover:underline">
+                Comuni
+              </Link>
+            </li>
+            <li>
+              <Link href="/guida" className="underline-offset-2 hover:underline">
+                Guida in 10 minuti
+              </Link>
+            </li>
+            <li>
+              <Link href="/riusa" className="underline-offset-2 hover:underline">
+                Guida al riuso
+              </Link>
+            </li>
+            <li>
+              <Link href="/kit-ente" className="underline-offset-2 hover:underline">
+                Kit ente
+              </Link>
+            </li>
+            <li>
+              <Link href="/novita" className="underline-offset-2 hover:underline">
+                Novità
+              </Link>
+            </li>
+            <li>
               <Link href="/fonti" className="underline-offset-2 hover:underline">
                 Fonti e licenze
               </Link>
@@ -162,13 +190,8 @@ export function LandingShell({ children }: { children: ReactNode }) {
               </Link>
             </li>
             <li>
-              <Link href="/riusa" className="underline-offset-2 hover:underline">
-                Guida al riuso
-              </Link>
-            </li>
-            <li>
               <Link href="/sostieni" className="underline-offset-2 hover:underline">
-                Sostieni
+                Supporto
               </Link>
             </li>
             <li>

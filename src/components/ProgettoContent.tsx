@@ -74,16 +74,28 @@ export function ProgettoContent() {
         <h2 className="text-xl font-bold">Dove andare</h2>
         <ul>
           <li>
-            <Link href="/fonti">Fonti</Link> — catalogo nazionale vs opzionale
+            <Link href="/comuni">Comuni</Link> — mappa e siti già nati
           </li>
           <li>
-            <Link href="/riusa">Riuso</Link> — fork, Vercel, config, env
+            <Link href="/guida">Guida in 10 minuti</Link> — dal browser, senza installare
+          </li>
+          <li>
+            <Link href="/riusa">Riuso</Link> — fork, Vercel, file del comune
+          </li>
+          <li>
+            <Link href="/kit-ente">Kit ente</Link> — testi per sito comunale e comunicato
+          </li>
+          <li>
+            <Link href="/novita">Novità</Link> — cosa è cambiato
+          </li>
+          <li>
+            <Link href="/fonti">Fonti</Link> — catalogo nazionale vs opzionale
           </li>
           <li>
             <Link href="/menzioni">Menzioni</Link> — testi da tenere nei fork
           </li>
           <li>
-            <Link href="/sostieni">Sostieni</Link> — contributo all’autore
+            <Link href="/sostieni">Supporto</Link> — contributo all’autore
           </li>
         </ul>
       </section>
