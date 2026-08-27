@@ -164,6 +164,14 @@ export const CLASSI_MINIME = 3;
 export const SCUOLA_DISCLAIMER =
   "Progetto indipendente, non ufficiale. Non affiliato ad AgID, al Governo italiano o a un ente locale.";
 
+/** Nei prompt, «dashboard» = template vuoto, non San Vincenzo e non questo minisito. */
+export const DASHBOARD_TEMPLATE = {
+  github: SITE.github,
+  titolo: "Quale dashboard si forka",
+  testo:
+    "La dashboard da costruire in classe è il template vuoto magiaslab/cruscotto-comune. Non si forka questo minisito e non si forka San Vincenzo. Il cruscotto di San Vincenzo si usa nel binario A come oggetto di lettura: è un esemplare già online, lo stesso programma con un'altra configurazione.",
+};
+
 export const SCUOLA_LICENZA = {
   nome: "CC BY-SA 4.0",
   url: "https://creativecommons.org/licenses/by-sa/4.0/deed.it",

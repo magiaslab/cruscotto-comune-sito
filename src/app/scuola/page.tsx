@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BinarioCard } from "@/components/scuola/BinarioCard";
 import { LezioneList } from "@/components/scuola/LezioneList";
 import { OreTable } from "@/components/scuola/OreTable";
+import { ScuolaDashboardNota } from "@/components/scuola/ScuolaDashboardNota";
 import { ScuolaSubnav } from "@/components/scuola/ScuolaChrome";
 import { JsonLd } from "@/components/JsonLd";
 import {
@@ -40,6 +41,7 @@ export default function Page() {
           {c.payoff}
         </p>
         <p>{c.intro}</p>
+        <ScuolaDashboardNota />
         <div className="not-prose mb-8 flex flex-wrap gap-2">
           {c.cta.map((item, i) => (
             <Link

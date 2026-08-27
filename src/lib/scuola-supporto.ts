@@ -260,7 +260,7 @@ export const STRUMENTI: StrumentoVoce[] = [
     nome: "Account GitHub del docente o della scuola",
     binario: "costruire",
     aCosaServe:
-      "Fork del template. Non account studente: i termini di servizio richiedono almeno 13 anni.",
+      "Fork del template vuoto github.com/magiaslab/cruscotto-comune. Non forkare San Vincenzo né questo minisito. Non account studente: i termini di servizio richiedono almeno 13 anni.",
   },
   {
     nome: "Account Vercel del docente o della scuola",

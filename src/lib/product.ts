@@ -2,7 +2,9 @@ export const SITE = {
   name: "Cruscotto Comune",
   tagline: "Dashboard open data per qualsiasi comune italiano",
   url: "https://www.cruscottocomune.it",
+  /** Template vuoto da forkare: è questa la «dashboard» dei prompt. */
   github: "https://github.com/magiaslab/cruscotto-comune",
+  /** Primo esemplare già online. Non è il codice da forkare. */
   demo: "https://www.cruscottosanvincenzo.it",
   demoLabel: "Cruscotto San Vincenzo",
   bmc: "https://www.buymeacoffee.com/acipriani",
@@ -29,9 +31,12 @@ export function getDemoUrl() {
 export function getDemoLabel() {
   return SITE.demoLabel;
 }
-/** Sul minisito la “dashboard” è l’esemplare in produzione, non un cruscotto vuoto. */
+/**
+ * Dashboard dei prompt (scuola, riuso, sandbox): il template vuoto da forkare.
+ * Non è questo minisito e non è San Vincenzo.
+ */
 export function getDashboardPath() {
-  return SITE.demo;
+  return SITE.github;
 }
 
 export const AUTHOR = {

@@ -8,6 +8,17 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Tre repo — non confonderli
+
+1. **Questo minisito** (`cruscotto-comune-sito`, https://www.cruscottocomune.it) è
+   l’hub di documentazione e divulgazione. Non è la dashboard. Non si forka.
+2. **Il template vuoto** https://github.com/magiaslab/cruscotto-comune è la
+   **dashboard** da forkare. Nei prompt (scuola, riuso, sandbox `/demo`)
+   «dashboard», «cruscotto da costruire», fork e deploy puntano **qui**.
+3. **Gli esemplari già online** (primo: https://www.cruscottosanvincenzo.it) sono
+   progetti finiti. In classe si usano come oggetto di lettura (binario A), non
+   come codice da copiare.
+
 ## Sezione /scuola — regole
 
 La sezione /scuola è il percorso didattico sui dati aperti. Vale quanto segue, sempre.

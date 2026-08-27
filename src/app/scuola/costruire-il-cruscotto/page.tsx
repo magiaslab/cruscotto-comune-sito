@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ScuolaChrome } from "@/components/scuola/ScuolaChrome";
+import { ScuolaDashboardNota } from "@/components/scuola/ScuolaDashboardNota";
 import {
   BINARI,
   MATERIALI,
@@ -37,6 +38,7 @@ export default function Page() {
       </h1>
       <p className="mb-4 text-lg text-[var(--pa-muted)]">{BINARIO.sottotitolo}</p>
       <p>{BINARIO.intro}</p>
+      <ScuolaDashboardNota />
       {BINARIO.avvertenzaAccount ? (
         <p className="guide-callout" role="note">
           <strong>Account e minorenni.</strong> {BINARIO.avvertenzaAccount}

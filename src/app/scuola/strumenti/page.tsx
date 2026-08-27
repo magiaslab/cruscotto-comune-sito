@@ -1,4 +1,5 @@
 import { ScuolaChrome } from "@/components/scuola/ScuolaChrome";
+import { ScuolaDashboardNota } from "@/components/scuola/ScuolaDashboardNota";
 import {
   REQUISITI_RETE,
   STRUMENTI,
@@ -32,6 +33,7 @@ export default function Page() {
         Nessuna carta di credito. L&apos;editor è opzionale: per il file di
         configurazione basta l&apos;editor di GitHub nel browser.
       </p>
+      <ScuolaDashboardNota />
       <h2 className="guide-h2">Binario A — Leggere i dati</h2>
       <ul>
         {a.map((s) => (
