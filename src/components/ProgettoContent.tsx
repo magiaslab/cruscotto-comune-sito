@@ -111,7 +111,7 @@ export function ProgettoContent() {
         <h2 className="text-xl font-bold">Dove andare</h2>
         <ul>
           <li>
-            <Link href="/comuni">Comuni</Link> — mappa e siti già nati
+            <Link href="/comuni">Comuni</Link> — mappa, siti già nati e segnalazione
           </li>
           <li>
             <Link href="/guida">Guida in 10 minuti</Link> — dal browser, senza installare
@@ -130,6 +130,9 @@ export function ProgettoContent() {
           </li>
           <li>
             <Link href="/menzioni">Menzioni</Link> — testi da tenere nei fork
+          </li>
+          <li>
+            <Link href="/suggerisci">Suggerisci</Link> — idea o problema, diventa issue GitHub
           </li>
           <li>
             <Link href="/sostieni">Supporto</Link> — contributo all’autore

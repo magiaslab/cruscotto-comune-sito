@@ -5,6 +5,8 @@ export const SITE = {
   url: "https://www.cruscottocomune.it",
   /** Template vuoto da forkare: è questa la «dashboard» dei prompt. */
   github: "https://github.com/magiaslab/cruscotto-comune",
+  /** Repo di QUESTO minisito: issue, catalogo comuni, documentazione. */
+  sitoGithub: "https://github.com/magiaslab/cruscotto-comune-sito",
   /** Primo cruscotto già esistente. Non è il codice da forkare. */
   demo: "https://www.cruscottosanvincenzo.it",
   demoLabel: "Cruscotto San Vincenzo",
@@ -19,6 +21,9 @@ export function getProductTagline() {
 }
 export function getTemplateGithubUrl() {
   return SITE.github;
+}
+export function getSitoGithubUrl() {
+  return SITE.sitoGithub;
 }
 export function getTemplateForkUrl() {
   return `${SITE.github}/fork`;

@@ -1,6 +1,5 @@
-/**
- * Rete dei cruscotti comunali già online o in lavorazione.
- * Aggiornare qui quando nasce un nuovo fork pubblico.
+/** Aggiornare qui quando nasce un nuovo fork pubblico.
+ *  Le segnalazioni arrivano dal form su /comuni (issue GitHub `[Cruscotto]`).
  */
 
 export type CruscottoStatus = "online" | "in_sviluppo";

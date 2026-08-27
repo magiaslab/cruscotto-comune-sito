@@ -443,6 +443,8 @@ npm run trasporti:gtfs`}
         {" · "}
         <Link href="/comuni">Comuni già nati</Link>
         {" · "}
+        <Link href="/suggerisci">Suggerisci</Link>
+        {" · "}
         <Link href="/sostieni">Supporto</Link>
         {" · "}
         <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>.

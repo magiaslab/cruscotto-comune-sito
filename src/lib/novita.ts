@@ -10,6 +10,13 @@ export type NovitaVoce = {
 export const NOVITA: NovitaVoce[] = [
   {
     data: "2026-08-27",
+    titolo: "Suggerisci e segnala un cruscotto",
+    testo: "Stesso wizard di Partecipa su San Vincenzo: i suggerimenti sul minisito diventano issue GitHub. Su Comuni si segnala un cruscotto già realizzato (chi, come, URL) per elenco e mappa.",
+    href: "/suggerisci",
+    hrefLabel: "Apri Suggerisci",
+  },
+  {
+    data: "2026-08-27",
     titolo: "Percorso Scuola",
     testo: "Due binari, otto lezioni da due ore, materiali CC BY-SA 4.0. Il binario A non richiede account; nel B gli account sono del docente o della scuola.",
     href: "/scuola",

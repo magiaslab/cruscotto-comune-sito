@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       { source: "/supporto", destination: "/sostieni", permanent: false },
       { source: "/esempi", destination: "/comuni", permanent: false },
       { source: "/10-minuti", destination: "/guida", permanent: false },
+      { source: "/partecipa", destination: "/suggerisci", permanent: false },
+      { source: "/suggerimenti", destination: "/suggerisci", permanent: false },
     ];
   },
 };
