@@ -22,6 +22,12 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
    classe si usano come oggetto di lettura (binario A), non come codice da
    copiare. Non si forkano.
 
+I richiami di fork, deploy e file di esempio (`project-origin.ts` →
+`github_repo_url`, Vercel, `docs/riuso-fork.md`) puntano al template vuoto, non
+al repo di San Vincenzo. Il credito a Francesco Piero Paolicelli (Piersoft) per
+Cruscotto Italia resta in Menzioni, come nella pagina Attribuzioni del
+cruscotto originale.
+
 ## Sezione /scuola — regole
 
 La sezione /scuola è il percorso didattico sui dati aperti. Vale quanto segue, sempre.

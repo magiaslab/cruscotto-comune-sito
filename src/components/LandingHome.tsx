@@ -127,8 +127,9 @@ export function LandingHome() {
               Menzioni chiare
             </h3>
             <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
-              Resta il credito ad Alessandro Cipriani e al primo esemplare.
-              Resta il disclaimer «non ufficiale». La guida{" "}
+              Resta il credito ad Alessandro Cipriani, al primo esemplare e a
+              Francesco Piero Paolicelli (Piersoft) per Cruscotto Italia. Resta
+              il disclaimer «non ufficiale». La guida{" "}
               <Link href="/menzioni">Menzioni</Link> ha i testi da copiare.
             </p>
           </article>

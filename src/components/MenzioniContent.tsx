@@ -1,4 +1,9 @@
 import { LandingDoc } from "@/components/LandingDoc";
+import {
+  CRUSCOTTO_ITALIA,
+  PIERSOFT,
+  piersoftNomeCitato,
+} from "@/lib/cruscotto-italia";
 import { PROJECT_ORIGIN } from "@/lib/project-origin";
 import {
   getDemoLabel,
@@ -7,18 +12,23 @@ import {
   getTemplateGithubUrl,
 } from "@/lib/product";
 
-const SNIPPET_FOOTER = `Basato su ${getProductName()}, progetto di ${PROJECT_ORIGIN.author.name}, nato dal ${getDemoLabel()}.`;
+const github = getTemplateGithubUrl();
 
-const SNIPPET_README = `Questo sito è un fork di [${getProductName()}](${getTemplateGithubUrl()}), template open source di ${PROJECT_ORIGIN.author.name}.
+const SNIPPET_FOOTER = `Basato su ${getProductName()}, progetto di ${PROJECT_ORIGIN.author.name}, nato dal ${getDemoLabel()}. I KPI comunali arrivano da Cruscotto Italia (AgID), di ${piersoftNomeCitato()}.`;
+
+const SNIPPET_README = `Questo sito è un fork di [${getProductName()}](${github}), template open source di ${PROJECT_ORIGIN.author.name}.
 Primo esemplare in produzione: [${getDemoLabel()}](${getDemoUrl()}).
+I KPI comunali arrivano da [Cruscotto Italia](${CRUSCOTTO_ITALIA.url}), progettato e sviluppato da [${piersoftNomeCitato()}](${PIERSOFT.github}) per AgID.
 Progetto indipendente, non ufficiale: non affiliato al Comune, ad AgID o al Governo italiano.`;
+
+const SNIPPET_PIERSOFT = `Cruscotto Italia è progettato e sviluppato da [${piersoftNomeCitato()}](${PIERSOFT.github}) per AgID. Codice sorgente [su GitHub](${CRUSCOTTO_ITALIA.github}) (AGPL-3.0).`;
 
 export function MenzioniContent() {
   return (
     <LandingDoc
       kicker="Menzioni"
       title="Come citare il progetto nei fork"
-      lede="Il riuso è il punto. Le menzioni non sono burocrazia: dicono da dove viene il lavoro e che il sito non è l’ente."
+      lede="Il riuso è il punto. Le menzioni non sono burocrazia: dicono da dove viene il lavoro, chi ha fatto Cruscotto Italia, e che il sito non è l’ente."
     >
       <section>
         <h2 className="text-xl font-bold">Cosa non toccare</h2>
@@ -26,7 +36,16 @@ export function MenzioniContent() {
           <li>
             <code>src/lib/project-origin.ts</code> — crediti di{" "}
             {PROJECT_ORIGIN.author.name} e del primo esemplare (
-            {PROJECT_ORIGIN.comune_demo}).
+            {PROJECT_ORIGIN.comune_demo}). Il repository da forkare, nello
+            stesso file, è il template vuoto{" "}
+            <a href={github} target="_blank" rel="noopener noreferrer">
+              magiaslab/cruscotto-comune
+            </a>
+            .
+          </li>
+          <li>
+            Il credito a {piersoftNomeCitato()} per Cruscotto Italia, nella
+            pagina Attribuzioni.
           </li>
           <li>
             Il disclaimer «progetto indipendente / non ufficiale» in header e
@@ -37,6 +56,42 @@ export function MenzioniContent() {
             ecc.
           </li>
         </ul>
+      </section>
+      <section>
+        <h2 className="text-xl font-bold">Cruscotto Italia e Piersoft</h2>
+        <p>
+          Fonte principale dei KPI comunali:{" "}
+          <a
+            href={CRUSCOTTO_ITALIA.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            cruscotto-italia.dati.gov.it
+          </a>
+          . Licenza contenuti {CRUSCOTTO_ITALIA.licenza}.
+        </p>
+        <p>
+          Cruscotto Italia è progettato e sviluppato da{" "}
+          <a href={PIERSOFT.github} target="_blank" rel="noopener noreferrer">
+            {piersoftNomeCitato()}
+          </a>{" "}
+          per AgID. Codice sorgente{" "}
+          <a
+            href={CRUSCOTTO_ITALIA.github}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            su GitHub
+          </a>{" "}
+          (AGPL-3.0).
+        </p>
+        <p>
+          È lo stesso riferimento (e ringraziamento) della pagina Attribuzioni
+          del cruscotto originale. Nei fork va tenuto: non si toglie.
+        </p>
+        <pre className="overflow-x-auto rounded-lg bg-[var(--pa-surface-soft)] p-4 text-xs leading-relaxed">
+          {SNIPPET_PIERSOFT}
+        </pre>
       </section>
       <section>
         <h2 className="text-xl font-bold">Cosa compilare tu</h2>
@@ -78,7 +133,8 @@ export function MenzioniContent() {
         <p>Formula minima, adattabile:</p>
         <blockquote className="border-l-4 border-[var(--pa-primary)] pl-4 italic text-[var(--pa-muted)]">
           Dashboard indipendente dei dati aperti del Comune di …, realizzata
-          riusando {getProductName()} di {PROJECT_ORIGIN.author.name}. Non è un
+          riusando {getProductName()} di {PROJECT_ORIGIN.author.name}. I numeri
+          arrivano da Cruscotto Italia (AgID) di {piersoftNomeCitato()}. Non è un
           canale ufficiale dell’ente.
         </blockquote>
       </section>
