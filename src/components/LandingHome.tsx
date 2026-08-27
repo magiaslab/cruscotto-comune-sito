@@ -8,6 +8,12 @@ import {
   ToggleLeft,
 } from "lucide-react";
 import { GitHubMark, VercelMark } from "@/components/BrandMarks";
+import {
+  countCruscottiEsistentiInLettere,
+  fraseCruscottiEsistenti,
+  getAltriCruscotti,
+  getPrimoCruscotto,
+} from "@/lib/cruscotti-rete";
 import { FONTI } from "@/lib/fonti";
 import { PROJECT_ORIGIN } from "@/lib/project-origin";
 import {
@@ -55,20 +61,23 @@ export function LandingHome() {
   const product = getProductName();
   const demo = getDemoUrl();
   const fork = getTemplateForkUrl();
+  const primo = getPrimoCruscotto();
+  const altri = getAltriCruscotti();
 
   return (
     <>
       <section className="border-b border-[var(--pa-border)] bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
           <p className="m-0 text-sm font-semibold uppercase tracking-wide text-[var(--pa-primary)]">
-            Open data · Comuni italiani
+            Divulgazione · Hub dei progetti
           </p>
           <h1 className="mb-4 mt-2 max-w-3xl text-3xl font-bold leading-tight text-[var(--pa-ink)] sm:text-5xl">
             {product}
           </h1>
           <p className="mb-6 max-w-2xl text-lg leading-relaxed text-[var(--pa-muted)] sm:text-xl">
-            {getProductTagline()}. Un template Next.js da forkare: niente dati
-            di San Vincenzo, moduli accendibili, fonti nazionali già pronte.
+            {getProductTagline()}. Il codice da forkare è il template vuoto su
+            GitHub: niente dati di {primo.nome}, moduli accendibili, fonti
+            nazionali già pronte. Oggi {fraseCruscottiEsistenti()}.
           </p>
           <div className="flex flex-wrap gap-3">
             <Cta href="/guida">Guida in 10 minuti</Cta>
@@ -118,8 +127,9 @@ export function LandingHome() {
               Menzioni chiare
             </h3>
             <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
-              Resta il credito ad Alessandro Cipriani e al primo esemplare.
-              Resta il disclaimer «non ufficiale». La guida{" "}
+              Resta il credito ad Alessandro Cipriani, al primo esemplare e a
+              Francesco Piero Paolicelli (Piersoft) per Cruscotto Italia. Resta
+              il disclaimer «non ufficiale». La guida{" "}
               <Link href="/menzioni">Menzioni</Link> ha i testi da copiare.
             </p>
           </article>
@@ -132,9 +142,19 @@ export function LandingHome() {
             Comuni, kit e novità
           </h2>
           <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
-            San Vincenzo e Campiglia Marittima sono già pubblici. Bibbiena è in
-            anteprima. Per l’ente ci sono testi da copiare; per tutti, una
-            cronologia di quello che è cambiato.
+            Oggi {countCruscottiEsistentiInLettere()} cruscotti già esistenti. Il
+            primo è {primo.nome}
+            {altri.length > 0
+              ? `; gli altri sono ${altri
+                  .map((c) =>
+                    c.status === "in_sviluppo"
+                      ? `${c.nome} (in anteprima)`
+                      : c.nome,
+                  )
+                  .join(" e ")}`
+              : ""}
+            . Per l’ente ci sono testi da copiare; per tutti, una cronologia di
+            quello che è cambiato.
           </p>
           <div className="flex flex-wrap gap-3">
             <Cta href="/comuni">Mappa dei comuni</Cta>
@@ -271,7 +291,7 @@ export function LandingHome() {
             <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
               Il template è una dashboard vuota: dopo il fork, con ISTAT
               valorizzato, diventa il cruscotto del tuo comune. Questo minisito
-              è solo documentazione.
+              è lo strumento di divulgazione e l’hub dei progetti: non si forka.
             </p>
             <Cta href={fork} variant="ghost" external>
               <GitHubMark size={16} />

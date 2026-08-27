@@ -4,6 +4,7 @@ import { Server, Sparkles } from "lucide-react";
 import { GitHubMark, TelegramMark, VercelMark } from "@/components/BrandMarks";
 import { LandingDoc } from "@/components/LandingDoc";
 import { AUTHOR } from "@/lib/product";
+import { RIUSA_SCUOLA_BOX } from "@/lib/scuola";
 import {
   getTemplateForkUrl,
   getTemplateGithubUrl,
@@ -107,7 +108,8 @@ export function RiusaContent() {
           Cruscotto Italia (AgID)
         </a>
         , che è pubblico: non paghi e non chiedi un permesso. Il codice da
-        duplicare è il template, non questo minisito e non San Vincenzo.
+        duplicare è il template vuoto, non questo minisito (è l’hub) e non i
+        cruscotti già esistenti. Il primo è San Vincenzo: si legge, non si forka.
       </p>
       <p>
         Hai dieci minuti? C’è una{" "}
@@ -445,6 +447,13 @@ npm run trasporti:gtfs`}
         {" · "}
         <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>.
       </p>
+      <aside className="guide-callout">
+        <h2 className="guide-h2 mt-0">{RIUSA_SCUOLA_BOX.titolo}</h2>
+        <p>{RIUSA_SCUOLA_BOX.testo}</p>
+        <p className="mb-0">
+          <Link href={RIUSA_SCUOLA_BOX.href}>{RIUSA_SCUOLA_BOX.cta}</Link>
+        </p>
+      </aside>
     </LandingDoc>
   );
 }

@@ -4,6 +4,7 @@ import { ComuniMap } from "@/components/ComuniMap";
 import { LandingDoc } from "@/components/LandingDoc";
 import {
   CRUSCOTTI_RETE,
+  fraseCruscottiEsistenti,
   type CruscottoRete,
   type CruscottoStatus,
 } from "@/lib/cruscotti-rete";
@@ -55,8 +56,8 @@ export function ComuniContent() {
     <LandingDoc
       wide
       kicker="Comuni"
-      title="I cruscotti già nati"
-      lede="Ogni comune ha il suo sito, con i dati del proprio territorio. Qui li trovi sulla mappa e in elenco, così puoi vedere il risultato prima di replicarlo."
+      title="I cruscotti già esistenti"
+      lede={`Oggi ${fraseCruscottiEsistenti()}. Ogni comune ha il suo sito, con i dati del proprio territorio. Qui li trovi sulla mappa e in elenco, così puoi vedere il risultato prima di replicarlo.`}
     >
       <ComuniMap items={CRUSCOTTI_RETE} />
 

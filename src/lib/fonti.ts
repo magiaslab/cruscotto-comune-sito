@@ -23,7 +23,7 @@ export const FONTI: FonteVoce[] = [
     ambito: "nazionale",
     url: "https://cruscotto-italia.dati.gov.it/",
     licenza: "prevalentemente CC BY 4.0",
-    nota: "KPI comunali (demografia, economia, scuole, finanza SIOPE, PNRR, turismo ISTAT, territorio, …) filtrati per codice ISTAT.",
+    nota: "KPI comunali (demografia, economia, scuole, finanza SIOPE, PNRR, turismo ISTAT, territorio, …) filtrati per codice ISTAT. Progettato e sviluppato da Francesco Piero Paolicelli (Piersoft) per AgID.",
   },
   {
     nome: "OpenStreetMap / Overpass / CARTO",

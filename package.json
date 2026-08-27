@@ -2,7 +2,7 @@
   "name": "cruscotto-comune-sito",
   "version": "0.2.0",
   "private": true,
-  "description": "Minisito di Cruscotto Comune (documentazione, riuso, menzioni). Il template da forkare è magiaslab/cruscotto-comune.",
+  "description": "Minisito di divulgazione e hub dei progetti Cruscotto Comune. Il template vuoto da forkare è magiaslab/cruscotto-comune.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

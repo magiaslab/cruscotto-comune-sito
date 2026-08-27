@@ -75,3 +75,52 @@ export function cruscottiOnline(): CruscottoRete[] {
 export function cruscottiInSviluppo(): CruscottoRete[] {
   return CRUSCOTTI_RETE.filter((c) => c.status === "in_sviluppo");
 }
+
+const NUMERI_IT = [
+  "zero",
+  "un",
+  "due",
+  "tre",
+  "quattro",
+  "cinque",
+  "sei",
+  "sette",
+  "otto",
+  "nove",
+  "dieci",
+] as const;
+
+/** Tutti i cruscotti in catalogo (online o in anteprima). Oggi 3. */
+export function countCruscottiEsistenti(): number {
+  return CRUSCOTTI_RETE.length;
+}
+
+export function countCruscottiEsistentiInLettere(): string {
+  const n = countCruscottiEsistenti();
+  return n < NUMERI_IT.length ? NUMERI_IT[n] : String(n);
+}
+
+/** Il primo cruscotto della rete: San Vincenzo. */
+export function getPrimoCruscotto(): CruscottoRete {
+  const primo = CRUSCOTTI_RETE.find((c) => c.origin === true);
+  if (!primo) {
+    throw new Error("Catalogo senza cruscotto origin (San Vincenzo).");
+  }
+  return primo;
+}
+
+export function getAltriCruscotti(): CruscottoRete[] {
+  const primoId = getPrimoCruscotto().id;
+  return CRUSCOTTI_RETE.filter((c) => c.id !== primoId).sort(
+    (a, b) => a.ordine - b.ordine,
+  );
+}
+
+/** «tre cruscotti già esistenti. Il primo è San Vincenzo» */
+export function fraseCruscottiEsistenti(): string {
+  const n = countCruscottiEsistenti();
+  const lettere = countCruscottiEsistentiInLettere();
+  const primo = getPrimoCruscotto();
+  const nome = n === 1 ? "cruscotto già esistente" : "cruscotti già esistenti";
+  return `${lettere} ${nome}. Il primo è ${primo.nome}`;
+}
