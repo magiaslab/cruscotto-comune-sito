@@ -24,7 +24,8 @@ export function FontiContent() {
         <p>
           Licenze e attribuzioni d’uso: tab{" "}
           <Link href="/menzioni">Menzioni</Link> e, nel cruscotto comunale,
-          Attribuzioni e regole.
+          Attribuzioni e regole. Per vedere ogni sezione con i dati in pagina e
+          lo screenshot: <Link href="/sezioni">Sezioni del cruscotto</Link>.
         </p>
       </section>
 

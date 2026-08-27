@@ -207,6 +207,26 @@ footer a:hover {
   color: var(--pa-warning);
 }
 
+.status-pill-muted {
+  background: var(--pa-surface-soft);
+  color: var(--pa-muted);
+}
+
+.sezioni-shot-link {
+  display: block;
+  margin-top: 0.85rem;
+  text-decoration: none;
+}
+
+.sezioni-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--pa-border);
+  background: var(--pa-surface-soft);
+}
+
 .account-grid {
   display: grid;
   gap: 0.75rem;
