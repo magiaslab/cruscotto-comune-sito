@@ -16,7 +16,7 @@ export function NovitaContent() {
     <LandingDoc
       kicker="Novità"
       title="Cosa è cambiato"
-      lede="Funzioni e siti aggiunti di mese in mese. Niente changelog da sviluppatori: solo quello che si vede da fuori."
+      lede="Quello che si vede da fuori, mese per mese. Non è il changelog dei commit."
     >
       <ol className="not-prose m-0 list-none space-y-4 p-0">
         {NOVITA.map((voce) => {
@@ -56,8 +56,7 @@ export function NovitaContent() {
         })}
       </ol>
       <p>
-        Prossimi passi sulla mappa: altri comuni, storie di fork, magari un
-        video dei dieci minuti. Se ne hai fatto uno, scrivilo: finisce qui e in{" "}
+        Se ne hai fatto uno, scrivilo: finisce qui e in{" "}
         <Link href="/comuni">Comuni</Link>.
       </p>
     </LandingDoc>

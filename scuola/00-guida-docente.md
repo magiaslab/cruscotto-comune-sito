@@ -1,7 +1,6 @@
 # Guida docente — Cruscotto Comune a scuola
 
-Percorso didattico sui dati aperti che finisce con un cruscotto vero, online, per il comune della
-scuola. Otto lezioni da due ore, divise in due binari indipendenti.
+Percorso sui dati aperti che può finire con un cruscotto vero, online, per il comune della scuola. Otto lezioni da due ore, in due binari.
 
 **Licenza:** CC BY-SA 4.0 — si può modificare, tradurre, adattare e ridistribuire, citando la fonte
 e mantenendo la stessa licenza.
@@ -15,13 +14,12 @@ e mantenendo la stessa licenza.
 |---|---|
 | **Destinatari** | Secondaria di primo grado (binario A), secondaria di secondo grado (entrambi) |
 | **Durata** | 4, 8, 16 o 33 ore secondo il formato scelto |
-| **Prodotto finale** | Un data report, oppure un cruscotto pubblicato online per il proprio comune |
-| **Costo** | Zero |
-| **Serve saper programmare?** | No. Il cruscotto si personalizza compilando un file di configurazione |
+| **Alla fine** | Un data report, oppure un cruscotto pubblicato per il proprio comune |
+| **Costo** | Niente da pagare: GitHub, Vercel gratuito, fonti nazionali |
+| **Serve saper programmare?** | No. Il cruscotto si personalizza compilando un file |
 
-Il percorso nasce da [Cruscotto Comune](https://www.cruscottocomune.it/), template open source per
-dashboard di dati aperti comunali, e dal suo primo esemplare,
-[Cruscotto San Vincenzo](https://www.cruscottosanvincenzo.it/).
+L'ho messo a punto partendo da [Cruscotto Comune](https://www.cruscottocomune.it/) e da
+[Cruscotto San Vincenzo](https://www.cruscottosanvincenzo.it/), il primo che ho fatto.
 
 ---
 
@@ -29,15 +27,16 @@ dashboard di dati aperti comunali, e dal suo primo esemplare,
 
 ### Binario A — Leggere i dati (lezioni 1–4, 8 ore)
 
-Il cruscotto è l'oggetto di studio, non il prodotto. La classe cerca le fonti, confronta comuni
-simili, smonta i KPI ingannevoli e chiede quello che manca. Serve un browser e un foglio di calcolo.
-Nessun account, nessun deploy.
+Qui il cruscotto è l'oggetto di studio, non il prodotto da pubblicare. La classe cerca le fonti,
+confronta comuni simili, smonta gli indicatori ingannevoli e chiede quello che manca. Serve un
+browser e un foglio di calcolo.
 
-**È un percorso completo anche da solo.** Non è il riscaldamento del binario B.
+**Sta in piedi da solo.** Non è il riscaldamento del binario B.
 
 ### Binario B — Costruire il cruscotto (lezioni 5–8, 8 ore)
 
-Fork del template, deploy, configurazione, verifica, presentazione pubblica. Zero righe di codice.
+Copia del template sul GitHub del docente, pubblicazione su Vercel, file del comune, verifica,
+presentazione. Non si scrive codice.
 Richiede un account GitHub e un account Vercel **intestati al docente o alla scuola**.
 
 ### Come si combinano

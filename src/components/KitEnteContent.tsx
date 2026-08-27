@@ -13,7 +13,7 @@ Il sito raccoglie informazioni già pubbliche (ISTAT, AgID, open data nazionali 
 
 Non è un sito istituzionale e non è affiliato al Comune, ad AgID o al Governo italiano. I numeri restano quelli delle fonti originali: per un atto ufficiale si torna sempre al dataset di provenienza.
 
-Il lavoro riusa il template open source ${SITE.name} di ${AUTHOR.name}, nato dal primo esemplare Cruscotto San Vincenzo. Codice e guida: ${SITE.url}
+Il lavoro riusa il template open source ${SITE.name} di ${AUTHOR.name}, partito dal cruscotto di San Vincenzo. Codice e guida: ${SITE.url}
 
 Contatti progetto: ${AUTHOR.email}`;
 
@@ -36,12 +36,12 @@ export function KitEnteContent() {
     <LandingDoc
       kicker="Kit ente"
       title="Testi pronti per l’amministrazione"
-      lede="Due paragrafi per il sito comunale, un comunicato e un post. Da copiare e adattare. Resta sempre il disclaimer: il cruscotto non è l’ente."
+      lede="Un paragrafo per il sito comunale, un comunicato, un post. Da copiare e adattare. Resta il punto fermo: il cruscotto non è l’ente."
     >
       <p>
         Questi testi non sostituiscono una delibera né un parere del
-        responsabile della comunicazione. Servono a non partire da zero, e a non
-        far passare il cruscotto per un canale ufficiale.
+        responsabile della comunicazione. Servono a non partire da una pagina
+        bianca, e a non far passare il cruscotto per un canale ufficiale.
       </p>
       <p>
         Le menzioni obbligatorie (autore, template, «non ufficiale») sono anche
@@ -83,7 +83,7 @@ export function KitEnteContent() {
         Hai bisogno di una revisione del testo?{" "}
         <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
         {" · "}
-        <Link href="/guida">Guida in 10 minuti</Link>
+        <Link href="/guida">Guida</Link>
         {" · "}
         <Link href="/comuni">Comuni già nati</Link>.
       </p>

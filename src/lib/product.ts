@@ -1,13 +1,13 @@
 export const SITE = {
   name: "Cruscotto Comune",
-  /** Ruolo di QUESTO minisito, non della dashboard. */
-  tagline: "Strumento di divulgazione e hub dei progetti",
+  /** Sottotitolo in testata: cosa può fare chi arriva sul sito. */
+  tagline: "I cruscotti già online e come farne uno",
   url: "https://www.cruscottocomune.it",
-  /** Template vuoto da forkare: è questa la «dashboard» dei prompt. */
+  /** Template da cui partire per un nuovo comune. */
   github: "https://github.com/magiaslab/cruscotto-comune",
-  /** Repo di QUESTO minisito: issue, catalogo comuni, documentazione. */
+  /** Repo di questo sito: issue, catalogo comuni, documentazione. */
   sitoGithub: "https://github.com/magiaslab/cruscotto-comune-sito",
-  /** Primo cruscotto già esistente. Non è il codice da forkare. */
+  /** Primo cruscotto già esistente. Non è il codice del template. */
   demo: "https://www.cruscottosanvincenzo.it",
   demoLabel: "Cruscotto San Vincenzo",
   bmc: "https://www.buymeacoffee.com/acipriani",
@@ -38,8 +38,7 @@ export function getDemoLabel() {
   return SITE.demoLabel;
 }
 /**
- * Dashboard dei prompt (scuola, riuso, sandbox): il template vuoto da forkare.
- * Non è questo minisito e non è San Vincenzo.
+ * Dashboard nei prompt (scuola, riuso): il template, non questo sito e non San Vincenzo.
  */
 export function getDashboardPath() {
   return SITE.github;

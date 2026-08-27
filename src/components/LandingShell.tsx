@@ -23,11 +23,37 @@ const NAV: { href: string; label: string }[] = [
   { href: "/comuni", label: "Comuni" },
   { href: "/riusa", label: "Riuso" },
   { href: "/scuola", label: "Scuola" },
-  { href: "/kit-ente", label: "Kit ente" },
-  { href: "/novita", label: "Novità" },
   { href: "/sezioni", label: "Sezioni" },
-  { href: "/fonti", label: "Fonti" },
-  { href: "/menzioni", label: "Menzioni" },
+];
+
+const FOOTER: { titolo: string; voci: { href: string; label: string }[] }[] = [
+  {
+    titolo: "Orientarsi",
+    voci: [
+      { href: "/progetto", label: "Progetto" },
+      { href: "/comuni", label: "Comuni" },
+      { href: "/sezioni", label: "Sezioni" },
+      { href: "/novita", label: "Novità" },
+    ],
+  },
+  {
+    titolo: "Fare",
+    voci: [
+      { href: "/guida", label: "Guida" },
+      { href: "/riusa", label: "Riuso" },
+      { href: "/scuola", label: "Scuola" },
+      { href: "/kit-ente", label: "Kit ente" },
+    ],
+  },
+  {
+    titolo: "Riferimenti",
+    voci: [
+      { href: "/fonti", label: "Fonti" },
+      { href: "/menzioni", label: "Menzioni" },
+      { href: "/suggerisci", label: "Suggerisci" },
+      { href: "/sostieni", label: "Supporto" },
+    ],
+  },
 ];
 
 export function LandingShell({ children }: { children: ReactNode }) {
@@ -82,7 +108,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <nav
-            aria-label="Sezioni del sito"
+            aria-label="Pagine principali"
             className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-1 sm:gap-2"
           >
             {NAV.map((item) => {
@@ -109,7 +135,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
               rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:bg-[var(--pa-surface-soft)]"
             >
-              Demo
+              San Vincenzo
             </a>
             <a
               href={fork}
@@ -118,7 +144,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
               className="inline-flex min-h-11 items-center gap-1.5 rounded-lg bg-[var(--pa-primary)] px-3 text-sm font-bold text-white no-underline hover:bg-[var(--pa-primary-hover)]"
             >
               <GitHubMark size={16} />
-              Fork su GitHub
+              Copia su GitHub
             </a>
           </nav>
         </div>
@@ -130,12 +156,11 @@ export function LandingShell({ children }: { children: ReactNode }) {
         className="mt-auto border-t border-[color-mix(in_srgb,white_15%,transparent)] bg-[var(--pa-footer)] text-white"
         role="contentinfo"
       >
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:flex-row sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-6 sm:px-6 lg:flex-row lg:justify-between">
           <div className="max-w-xl">
             <p className="m-0 text-sm font-bold">{product}</p>
             <p className="mb-0 mt-2 text-xs leading-relaxed text-[var(--pa-footer-muted)] sm:text-sm">
-              Strumento di divulgazione e hub dei progetti, di {AUTHOR.name}.
-              Template da forkare:{" "}
+              Un progetto di {AUTHOR.name}. Template su{" "}
               <a
                 href={github}
                 target="_blank"
@@ -155,72 +180,39 @@ export function LandingShell({ children }: { children: ReactNode }) {
               </a>
               .
             </p>
-          </div>
-          <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">
-            <li>
-              <Link href="/suggerisci" className="underline-offset-2 hover:underline">
-                Suggerisci
-              </Link>
-            </li>
-            <li>
-              <Link href="/comuni" className="underline-offset-2 hover:underline">
-                Comuni
-              </Link>
-            </li>
-            <li>
-              <Link href="/guida" className="underline-offset-2 hover:underline">
-                Guida in 10 minuti
-              </Link>
-            </li>
-            <li>
-              <Link href="/riusa" className="underline-offset-2 hover:underline">
-                Guida al riuso
-              </Link>
-            </li>
-            <li>
-              <Link href="/scuola" className="underline-offset-2 hover:underline">
-                Percorso didattico
-              </Link>
-            </li>
-            <li>
-              <Link href="/kit-ente" className="underline-offset-2 hover:underline">
-                Kit ente
-              </Link>
-            </li>
-            <li>
-              <Link href="/novita" className="underline-offset-2 hover:underline">
-                Novità
-              </Link>
-            </li>
-            <li>
-              <Link href="/sezioni" className="underline-offset-2 hover:underline">
-                Sezioni del cruscotto
-              </Link>
-            </li>
-            <li>
-              <Link href="/fonti" className="underline-offset-2 hover:underline">
-                Fonti e licenze
-              </Link>
-            </li>
-            <li>
-              <Link href="/menzioni" className="underline-offset-2 hover:underline">
-                Guida alle menzioni
-              </Link>
-            </li>
-            <li>
-              <Link href="/sostieni" className="underline-offset-2 hover:underline">
-                Supporto
-              </Link>
-            </li>
-            <li>
+            <p className="mb-0 mt-2 text-xs sm:text-sm">
               <a
                 href={`mailto:${PROJECT_ORIGIN.author.email}`}
                 className="underline-offset-2 hover:underline"
               >
                 {PROJECT_ORIGIN.author.email}
               </a>
-            </li>
-          </ul>
+            </p>
+          </div>
+          <nav
+            aria-label="Pagine del sito"
+            className="grid gap-6 text-sm md:grid-cols-3"
+          >
+            {FOOTER.map((col) => (
+              <div key={col.titolo}>
+                <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--pa-footer-muted)]">
+                  {col.titolo}
+                </p>
+                <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                  {col.voci.map((voce) => (
+                    <li key={voce.href}>
+                      <Link
+                        href={voce.href}
+                        className="underline-offset-2 hover:underline"
+                      >
+                        {voce.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
       </footer>
     </div>

@@ -260,13 +260,13 @@ export const STRUMENTI: StrumentoVoce[] = [
     nome: "Account GitHub del docente o della scuola",
     binario: "costruire",
     aCosaServe:
-      "Fork del template vuoto github.com/magiaslab/cruscotto-comune. Non forkare questo minisito (è l'hub) né i cruscotti già esistenti: oggi sono tre, il primo è San Vincenzo. Non account studente: i termini di servizio richiedono almeno 13 anni.",
+      "Copia del template github.com/magiaslab/cruscotto-comune (un fork: una copia sul GitHub del docente). Non copiare questo sito né i cruscotti già online. Gli account degli studenti non servono: i termini di servizio di GitHub richiedono almeno 13 anni.",
   },
   {
     nome: "Account Vercel del docente o della scuola",
     binario: "costruire",
     aCosaServe:
-      "Deploy del cruscotto. I termini di servizio richiedono almeno 16 anni. Collegato a GitHub prima della lezione 5.",
+      "Pubblicazione del cruscotto. I termini di servizio richiedono almeno 16 anni. Collegato a GitHub prima della lezione 5.",
   },
   {
     nome: "Editor di testo (opzionale)",

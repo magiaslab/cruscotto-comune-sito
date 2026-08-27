@@ -18,12 +18,12 @@ export type FonteVoce = {
 
 export const FONTI: FonteVoce[] = [
   {
-    nome: "Cruscotto Italia (MCP)",
+    nome: "Cruscotto Italia (AgID)",
     ente: "AgID",
     ambito: "nazionale",
     url: "https://cruscotto-italia.dati.gov.it/",
     licenza: "prevalentemente CC BY 4.0",
-    nota: "KPI comunali (demografia, economia, scuole, finanza SIOPE, PNRR, turismo ISTAT, territorio, …) filtrati per codice ISTAT. Progettato e sviluppato da Francesco Piero Paolicelli (Piersoft) per AgID.",
+    nota: "Indicatori comunali (demografia, economia, scuole, finanza SIOPE, PNRR, turismo ISTAT, territorio) filtrati per codice ISTAT, via MCP pubblico. Progettato e sviluppato da Francesco Piero Paolicelli (Piersoft) per AgID.",
   },
   {
     nome: "OpenStreetMap / Overpass / CARTO",

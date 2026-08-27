@@ -167,9 +167,9 @@ export const SCUOLA_DISCLAIMER =
 /** Nei prompt, «dashboard» = template vuoto, non San Vincenzo e non questo minisito. */
 export const DASHBOARD_TEMPLATE = {
   github: SITE.github,
-  titolo: "Quale dashboard si forka",
+  titolo: "Quale cruscotto si costruisce in classe",
   testo:
-    "La dashboard da costruire in classe è il template vuoto magiaslab/cruscotto-comune. Non si forka questo minisito (è l'hub di divulgazione) e non si forkano i cruscotti già esistenti: oggi sono tre, il primo è San Vincenzo. San Vincenzo si usa nel binario A come oggetto di lettura: è un esemplare già online, lo stesso programma con un'altra configurazione.",
+    "Nel binario B la classe parte dal template magiaslab/cruscotto-comune: una copia sull’account GitHub del docente, poi pubblicata su Vercel. Questo sito e i cruscotti già online (San Vincenzo per primo) non si copiano. San Vincenzo serve nel binario A come oggetto di lettura: è lo stesso programma, già configurato su un comune reale.",
 };
 
 export const SCUOLA_LICENZA = {
@@ -188,7 +188,7 @@ export const BINARI: Binario[] = [
     slug: "leggere-i-dati",
     titolo: "Leggere i dati",
     sottotitolo:
-      "Quattro lezioni da due ore. Nessun account, nessun deploy: serve un browser e un foglio di calcolo.",
+      "Quattro lezioni da due ore. Serve un browser e un foglio di calcolo.",
     h1: "Binario A — Leggere i dati",
     occhiello: "Binario A · 8 ore",
     oreTotali: 8,
@@ -201,22 +201,20 @@ export const BINARI: Binario[] = [
     prerequisiti: [
       "Un browser",
       "Un foglio di calcolo (o carta)",
-      "Nessun account",
-      "Nessun deploy",
     ],
     prodottoFinale:
       "Un data report sul proprio comune e una richiesta di accesso civico generalizzato scritta dalla classe.",
     descrizione:
       "Il cruscotto è l'oggetto di studio, non il prodotto. La classe cerca le fonti, confronta comuni simili, smonta i KPI ingannevoli e chiede quello che manca.",
     intro:
-      "Il cruscotto è l'oggetto di studio, non il prodotto. La classe cerca le fonti, confronta comuni simili, smonta i KPI ingannevoli e chiede quello che manca. Serve un browser e un foglio di calcolo. Nessun account, nessun deploy. È un percorso completo anche da solo. Non è il riscaldamento del binario B. Quattro lezioni da due ore. Prodotto finale del binario: un data report sul proprio comune e una richiesta di accesso civico generalizzato scritta dalla classe.",
+      "Qui il cruscotto è l'oggetto di studio, non il prodotto da pubblicare. La classe cerca le fonti, confronta comuni simili, smonta gli indicatori ingannevoli e chiede quello che manca. Quattro lezioni da due ore, un browser e un foglio di calcolo. Alla fine: un data report sul proprio comune e una richiesta di accesso civico generalizzato scritta insieme. Si può fermare qui: è un percorso completo.",
   },
   {
     id: "costruire",
     slug: "costruire-il-cruscotto",
     titolo: "Costruire il cruscotto",
     sottotitolo:
-      "Fork del template, deploy, configurazione, verifica, presentazione pubblica. Zero righe di codice.",
+      "Copia del template, pubblicazione, file del comune, verifica, presentazione. Non si scrive codice.",
     h1: "Binario B — Costruire il cruscotto",
     occhiello: "Binario B · 8 ore",
     oreTotali: 8,
@@ -235,9 +233,9 @@ export const BINARI: Binario[] = [
     prodottoFinale:
       "Un cruscotto di dati aperti del proprio comune, pubblicato online, verificato e presentato.",
     descrizione:
-      "Fork del template, deploy, configurazione, verifica, presentazione pubblica. Zero righe di codice. Richiede un account GitHub e un account Vercel intestati al docente o alla scuola.",
+      "Copia del template, pubblicazione su Vercel, file di configurazione, verifica dei numeri, presentazione. Non si scrive codice. Gli account GitHub e Vercel sono del docente o della scuola.",
     intro:
-      "Quattro lezioni da due ore. Al termine la classe ha un cruscotto di dati aperti del proprio comune, pubblicato online, verificato e presentato. Non si scrive codice. Si fa un fork, si compila un file di configurazione e si controlla che i numeri siano giusti. Fork del template, deploy, configurazione, verifica, presentazione pubblica. Zero righe di codice. Richiede un account GitHub e un account Vercel intestati al docente o alla scuola.",
+      "Quattro lezioni da due ore. Al termine la classe ha un cruscotto di dati aperti del proprio comune, pubblicato, verificato e presentato. Non si scrive codice: si crea una copia del template sul GitHub del docente (un fork), si compila il file del comune e si controlla che i numeri siano quelli giusti. GitHub e Vercel restano intestati al docente o alla scuola.",
     avvertenzaAccount:
       "I termini di servizio di GitHub richiedono almeno 13 anni e quelli di Vercel almeno 16, quindi in una classe del biennio una parte degli studenti non ha l'età per aprire un account Vercel. Nel binario B l'account è del docente o della scuola e gli studenti lavorano come collaboratori del repository. Non far creare account personali agli studenti: non serve, e sposta su di loro una responsabilità che non è la loro.",
   },
@@ -414,9 +412,9 @@ export const SCUOLA_LANDING = {
   occhiello: "Open data · Scuola",
   h1: "Cruscotto Comune a scuola",
   payoff:
-    "Percorso didattico sui dati aperti che finisce con un cruscotto vero, online, per il comune della scuola.",
+    "Un percorso sui dati aperti che può finire con un cruscotto vero, online, per il comune della scuola.",
   intro:
-    "Otto lezioni da due ore, divise in due binari indipendenti. Destinatari: secondaria di primo grado (binario A) e secondaria di secondo grado (entrambi). Durata: 4, 8, 16 o 33 ore secondo il formato scelto, oppure PCTO da 30–60 ore. Prodotto finale: un data report, oppure un cruscotto pubblicato online per il proprio comune. Costo: zero. Serve saper programmare? No. Il cruscotto si personalizza compilando un file di configurazione. Il percorso nasce da Cruscotto Comune, template open source per dashboard di dati aperti comunali, e dal suo primo esemplare, Cruscotto San Vincenzo.",
+    "Otto lezioni da due ore, in due binari. Il primo si fa con un browser e un foglio di calcolo; il secondo pubblica un cruscotto, con gli account del docente. Si può fare in 4, 8, 16 ore, o in un PCTO. Non serve saper programmare: il cruscotto si personalizza compilando un file. L'ho messo a punto partendo da Cruscotto Comune e da San Vincenzo, il primo che ho fatto.",
   cta: [
     {
       href: "/scuola/leggere-i-dati",
@@ -440,13 +438,13 @@ export const SCUOLA_LANDING = {
         "Nel binario B: URL del cruscotto pubblicato, report di data quality audit, presentazione pubblica di cinque minuti a gruppo.",
     },
     {
-      titolo: "Competenze, non nozioni",
+      titolo: "Saper leggere, e saper dire di no",
       testo:
-        "Saper decidere se un dato si può riusare, documentare uno scostamento, dire che cosa non si sa. Licenza CC BY-SA 4.0, zero costi.",
+        "Decidere se un dato si può riusare, documentare uno scostamento, ammettere che cosa non si sa. Materiali CC BY-SA 4.0, senza costi.",
     },
   ],
   binariNota:
-    "Il binario A è un percorso completo anche da solo. Non è il riscaldamento del binario B.",
+    "Il binario A sta in piedi da solo. Non è il riscaldamento del B.",
   comeSiCombinano: [
     "Solo A — qualsiasi ordine di scuola, educazione civica, italiano, geografia, diritto.",
     "Solo B — se la classe ha già lavorato sui dati (per esempio ha fatto ASOC) e vuole il prodotto.",
@@ -495,7 +493,7 @@ export const SCUOLA_LANDING = {
     {
       titolo: "Costi",
       testo:
-        "Zero. GitHub, Vercel nel piano gratuito e tutte le fonti del nucleo nazionale sono gratuiti. Nessuna attività del percorso richiede servizi a pagamento. Se una guida ti chiede una carta di credito, sei fuori percorso.",
+        "GitHub, Vercel nel piano gratuito e le fonti nazionali sono gratis. Nessuna attività del percorso richiede una carta di credito. Se una guida te la chiede, sei fuori percorso.",
     },
     {
       titolo: "Supporto",
@@ -578,9 +576,9 @@ export const SEGNALAZIONE_CLASSE = {
 export const RIUSA_SCUOLA_BOX = {
   titolo: "Lo stai facendo con una classe?",
   testo:
-    "C'è un percorso didattico in due binari, otto lezioni da due ore, materiali CC BY-SA 4.0. Il binario A non richiede account. Nel binario B gli account sono del docente o della scuola.",
+    "C'è un percorso in due binari, otto lezioni da due ore, materiali CC BY-SA 4.0. Nel binario A non servono account. Nel B gli account sono del docente o della scuola.",
   href: "/scuola",
-  cta: "Percorso Scuola",
+  cta: "Percorso scuola",
 };
 
 export function lezioniPerBinario(id: BinarioId): Lezione[] {

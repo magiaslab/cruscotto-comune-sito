@@ -37,10 +37,10 @@ export const SUGGERISCI_TIPO_LABEL: Record<SuggerisciTipo, string> = {
 };
 
 export const SUGGERISCI_TIPO_HINT: Record<SuggerisciTipo, string> = {
-  miglioramento: "Un’idea per rendere più chiaro il minisito, la guida o il template.",
+  miglioramento: "Un’idea per rendere più chiaro questo sito, la guida o il template.",
   bug: "Qualcosa non funziona, è sbagliato o confonde.",
   domanda: "Chiarimento su riuso, scuola, fork o come usare il sito.",
-  nuovo_dato: "Una fonte, una pagina o un materiale da aggiungere all’hub.",
+  nuovo_dato: "Una fonte, una pagina o un materiale da aggiungere.",
 };
 
 export const SUGGERISCI_SEZIONI = [
@@ -59,14 +59,14 @@ export const SUGGERISCI_SEZIONI = [
 export const SUGGERISCI_COPY = {
   kicker: "Suggerisci",
   titolo: "Suggerisci un miglioramento",
-  lede: "Come su Cruscotto San Vincenzo: quattro passi e l’invio apre una issue pubblica su GitHub. Qui si parla del minisito, della guida e del template, non dei dati di un singolo comune.",
-  cosaTitolo: "Cos’è questo sito",
+  lede: "Quattro passi e l’invio apre una issue pubblica su GitHub. Qui si parla di questo sito, della guida e del template, non dei dati di un singolo comune.",
+  cosaTitolo: "Di cosa si parla",
   cosaTesto:
-    "È lo strumento di divulgazione e l’hub dei progetti Cruscotto Comune. Non è una dashboard e non si forka. Il codice da duplicare è il template vuoto su GitHub.",
+    "Idee su questo sito, sulla guida o sul template. Se hai un cruscotto già online, segnalalo dalla pagina Comuni.",
   aiutaTitolo: "Come puoi aiutare",
-  wizardTitolo: "Wizard suggerimenti",
+  wizardTitolo: "Proponi un miglioramento",
   wizardLede:
-    "Quattro passi: tipo, sezione, messaggio, conferma. L’invio apre una issue pubblica su GitHub.",
+    "Tipo, sezione, messaggio, conferma. L’invio apre una issue pubblica su GitHub.",
   sezioneLabel: "Sezione (opzionale)",
   sezioneVuota: "Nessuna / trasversale",
   sezioneHint: "Serve solo a inquadrare meglio la richiesta. Puoi lasciare vuoto.",
@@ -79,7 +79,7 @@ export const SUGGERISCI_COPY = {
   contattoPlaceholder: "Email o GitHub, solo se vuoi una risposta",
   riepilogo: "Riepilogo",
   disclaimer:
-    "Inviando, il testo diventa una issue pubblica sul repository GitHub di questo minisito.",
+    "Inviando, il testo diventa una issue pubblica sul repository GitHub di questo sito.",
   invia: "Invia su GitHub",
   invioInCorso: "Invio in corso…",
   avanti: "Avanti",

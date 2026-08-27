@@ -68,9 +68,9 @@ export const SEZIONI_HOME_IDS = [
 ] as const;
 
 export const SEZIONI_AMBITO_LABEL: Record<SezioneAmbito, string> = {
-  nucleo: "Nucleo nazionale",
-  opzionale: "Modulo opzionale",
-  esemplare: "Su San Vincenzo (0.3.0)",
+  nucleo: "Dati nazionali",
+  opzionale: "Si attiva se serve",
+  esemplare: "Per ora su San Vincenzo",
 };
 
 const AGID: SezioneFonte = {
@@ -447,4 +447,4 @@ export function sezioniInHome(): SezioneCruscotto[] {
 }
 
 export const SEZIONI_LEDE =
-  "Ogni sezione della dashboard ha un set di dati e una o più fonti. Il nucleo funziona con il codice ISTAT; i moduli si accendono in config. Alcune pagine (Chi amministra, Confronto, Dati aperti) sono già online su San Vincenzo 0.3.0 e arriveranno nel template.";
+  "Ogni pagina del cruscotto ha i suoi dati e le sue fonti. Con il codice ISTAT funzionano quelle nazionali; il resto si attiva nel file del comune. Alcune pagine — Chi amministra, Confronto, Dati aperti — sono già su San Vincenzo e arriveranno nel template.";

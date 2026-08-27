@@ -5,7 +5,7 @@ import { clipMetaDescription } from "@/lib/meta";
 export const metadata = {
   title: "Progetto",
   description: clipMetaDescription(
-    `Minisito di divulgazione e hub dei progetti. Il template vuoto da forkare è su GitHub. Oggi ${fraseCruscottiEsistenti()}.`,
+    `Qui trovi perché esiste Cruscotto Comune, come è nato da San Vincenzo e come crearne uno per un altro comune. Oggi ${fraseCruscottiEsistenti()}.`,
   ),
 };
 

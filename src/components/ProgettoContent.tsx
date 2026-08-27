@@ -1,7 +1,6 @@
 import { LandingDoc } from "@/components/LandingDoc";
 import {
   countCruscottiEsistentiInLettere,
-  fraseCruscottiEsistenti,
   getPrimoCruscotto,
 } from "@/lib/cruscotti-rete";
 import { PROJECT_ORIGIN } from "@/lib/project-origin";
@@ -21,33 +20,35 @@ export function ProgettoContent() {
     <LandingDoc
       kicker="Il progetto"
       title={product}
-      lede={`Questo minisito è lo strumento di divulgazione e l’hub dei progetti. Il template vuoto da forkare è su GitHub; oggi ${fraseCruscottiEsistenti()}.`}
+      lede="Ho iniziato da San Vincenzo perché mi sembrava utile vedere, in un unico posto, dati che esistevano già ma stavano sparsi. Da quel cruscotto è nata l’idea di un template che altri comuni possano usare."
     >
       <section>
-        <h2 className="text-xl font-bold">Cosa è questo sito</h2>
+        <h2 className="text-xl font-bold">Cosa trovi su questo sito</h2>
         <p>
-          {product} su questo dominio raccoglie i progetti, la guida al riuso, il
-          percorso scuola, il kit per l’ente e le fonti. Non è una dashboard e
-          non si forka.
+          La guida, i cruscotti già online, un percorso per le scuole, testi
+          per l’ente e l’elenco delle fonti. Non è la dashboard di un comune:
+          è la porta di ingresso al progetto.
         </p>
       </section>
       <section>
-        <h2 className="text-xl font-bold">Il template da forkare</h2>
+        <h2 className="text-xl font-bold">Il template</h2>
         <p>
-          Il codice <strong>generico</strong> da cui far partire un nuovo
-          cruscotto comunale sta su{" "}
+          Se vuoi creare un cruscotto nuovo, parti da{" "}
           <a href={github} target="_blank" rel="noopener noreferrer">
             {github.replace("https://", "")}
           </a>
-          . Legge l’identità da <code>config/comune.json</code>, parla con l’MCP
-          pubblico{" "}
-          <a href="https://cruscotto-italia.dati.gov.it/">Cruscotto Italia (AgID)</a>{" "}
-          e con altre API aperte, e mostra una dashboard a sidebar (KPI, mappe,
-          grafici).
+          . È una versione pulita: niente dati di {primo.nome}. L’identità del
+          comune sta in un file, <code>config/comune.json</code>. I numeri
+          nazionali arrivano da{" "}
+          <a href="https://cruscotto-italia.dati.gov.it/">
+            Cruscotto Italia (AgID)
+          </a>
+          , un servizio pubblico, e da altre API aperte.
         </p>
         <p>
-          Non è un prodotto multi-tenant: <strong>un deploy = un comune</strong>.
-          Non è un sito istituzionale. È uno strumento civico indipendente.
+          Ogni installazione è dedicata a un singolo comune. Non è un sito
+          istituzionale e non sostituisce albo pretorio o Amministrazione
+          Trasparente.
         </p>
       </section>
       <section>
@@ -56,89 +57,81 @@ export function ProgettoContent() {
           Oggi sono {countCruscottiEsistentiInLettere()}. Il primo è{" "}
           <a href={getDemoUrl()} target="_blank" rel="noopener noreferrer">
             {getDemoLabel()}
-          </a>{" "}
-          ({primo.nome}). L’elenco completo, con mappa, è nella pagina{" "}
+          </a>
+          . L’elenco, con la mappa, è in{" "}
           <Link href="/comuni">Comuni</Link>.
         </p>
       </section>
       <section>
-        <h2 className="text-xl font-bold">Cosa non è</h2>
-        <ul>
-          <li>Non è affiliato ad AgID, al Governo, a una Regione o a un Comune.</li>
-          <li>
-            Non sostituisce l’albo pretorio, l’Amministrazione Trasparente o i
-            canali ufficiali dell’ente.
-          </li>
-          <li>
-            Non è più il «fork con i dati di {primo.nome} da cancellare a mano».
-            Quella istanza resta{" "}
-            <a href={getDemoUrl()} target="_blank" rel="noopener noreferrer">
-              {getDemoLabel()}
-            </a>
-            , progetto finito sul proprio dominio: si legge, non si forka.
-          </li>
-        </ul>
+        <h2 className="text-xl font-bold">Limiti, detti chiaro</h2>
+        <p>
+          Il progetto è indipendente. Non è affiliato ad AgID, al Governo, a
+          una Regione o a un Comune. I numeri restano quelli delle fonti: se
+          serve un atto ufficiale, si torna al dataset originale.
+        </p>
+        <p>
+          Cruscotto San Vincenzo resta il progetto completo da consultare come
+          esempio. Per crearne uno nuovo si parte dal template, non da una
+          copia di San Vincenzo da «svuotare».
+        </p>
       </section>
       <section>
         <h2 className="text-xl font-bold">Come è nato</h2>
         <p>
-          Il primo cruscotto è quello di {PROJECT_ORIGIN.comune_demo}, realizzato
-          da{" "}
+          Il primo cruscotto l’ho fatto io,{" "}
           <a href={`mailto:${PROJECT_ORIGIN.author.email}`}>
             {PROJECT_ORIGIN.author.name}
           </a>
-          . Funziona, è specifico di quel territorio (costa, porto, ARPAT, GTFS
-          Toscana, webcam, …) e va lasciato così.
+          , per {PROJECT_ORIGIN.comune_demo}. Funziona, è specifico di quella
+          costa (porto, ARPAT, orari bus toscani, webcam) e va lasciato così.
         </p>
         <p>
-          Il template da forkare è il passo successivo: stessa stack, stessa
-          idea, <strong>nessun dato territoriale hardcoded</strong>, moduli
-          opzionali spenti di default. Questo minisito è lo strumento di
-          divulgazione e l’hub: indica il template e i {countCruscottiEsistentiInLettere()}{" "}
-          cruscotti già esistenti.
+          Il template è il passo successivo: stessa idea, nessun dato
+          territoriale fisso nel codice, moduli disattivati di default. Questo
+          sito indica il template e i comuni che l’hanno già usato.
         </p>
       </section>
       <section>
-        <h2 className="text-xl font-bold">Stack</h2>
-        <ul>
-          <li>Next.js 16 (App Router) + TypeScript + Tailwind</li>
-          <li>Chart.js, Leaflet, Three.js</li>
-          <li>MCP AgID per i KPI comunali</li>
-          <li>Vercel per l’hosting (nessuna env obbligatoria)</li>
-        </ul>
+        <h2 className="text-xl font-bold">Tecnologie</h2>
+        <p>
+          Next.js, TypeScript, Tailwind. Grafici con Chart.js, mappe con
+          Leaflet, un pezzo di rilievo 3D con Three.js. I KPI comunali
+          arrivano dal MCP pubblico di AgID. L’hosting tipico è Vercel: per la
+          versione base non servono chiavi API.
+        </p>
       </section>
       <section>
-        <h2 className="text-xl font-bold">Dove andare</h2>
+        <h2 className="text-xl font-bold">A seconda di chi sei</h2>
         <ul>
           <li>
-            <Link href="/comuni">Comuni</Link> — mappa, siti già nati e segnalazione
+            <Link href="/comuni">Cittadino</Link> — i cruscotti già nati, sulla
+            mappa
           </li>
           <li>
-            <Link href="/guida">Guida in 10 minuti</Link> — dal browser, senza installare
+            <Link href="/guida">Chi vuole provarci</Link> — una guida breve,
+            tutta nel browser
           </li>
           <li>
-            <Link href="/riusa">Riuso</Link> — fork, Vercel, file del comune
+            <Link href="/riusa">Chi configura il comune</Link> — il file JSON,
+            i moduli, Vercel
           </li>
           <li>
-            <Link href="/kit-ente">Kit ente</Link> — testi per sito comunale e comunicato
+            <Link href="/scuola">Insegnanti</Link> — due binari, otto lezioni
           </li>
           <li>
-            <Link href="/novita">Novità</Link> — cosa è cambiato
+            <Link href="/kit-ente">Ente</Link> — testi da copiare, con il
+            disclaimer al posto giusto
           </li>
           <li>
-            <Link href="/sezioni">Sezioni</Link> — dati in pagina e fonti agganciate
+            <Link href="/fonti">Chi guarda i numeri</Link> — fonti e licenze
           </li>
           <li>
-            <Link href="/fonti">Fonti</Link> — catalogo nazionale vs opzionale
+            <Link href="/menzioni">Chi pubblica un fork</Link> — cosa citare e
+            cosa non toccare
           </li>
           <li>
-            <Link href="/menzioni">Menzioni</Link> — testi da tenere nei fork
-          </li>
-          <li>
-            <Link href="/suggerisci">Suggerisci</Link> — idea o problema, diventa issue GitHub
-          </li>
-          <li>
-            <Link href="/sostieni">Supporto</Link> — contributo all’autore
+            <Link href="/suggerisci">Chi ha un’idea</Link> — diventa una issue
+            su GitHub
           </li>
         </ul>
       </section>

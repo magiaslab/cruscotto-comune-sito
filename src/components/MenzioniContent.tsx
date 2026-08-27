@@ -17,7 +17,7 @@ const github = getTemplateGithubUrl();
 const SNIPPET_FOOTER = `Basato su ${getProductName()}, progetto di ${PROJECT_ORIGIN.author.name}, nato dal ${getDemoLabel()}. I KPI comunali arrivano da Cruscotto Italia (AgID), di ${piersoftNomeCitato()}.`;
 
 const SNIPPET_README = `Questo sito è un fork di [${getProductName()}](${github}), template open source di ${PROJECT_ORIGIN.author.name}.
-Primo esemplare in produzione: [${getDemoLabel()}](${getDemoUrl()}).
+Primo cruscotto in produzione: [${getDemoLabel()}](${getDemoUrl()}).
 I KPI comunali arrivano da [Cruscotto Italia](${CRUSCOTTO_ITALIA.url}), progettato e sviluppato da [${piersoftNomeCitato()}](${PIERSOFT.github}) per AgID.
 Progetto indipendente, non ufficiale: non affiliato al Comune, ad AgID o al Governo italiano.`;
 
@@ -27,17 +27,17 @@ export function MenzioniContent() {
   return (
     <LandingDoc
       kicker="Menzioni"
-      title="Come citare il progetto nei fork"
-      lede="Il riuso è il punto. Le menzioni non sono burocrazia: dicono da dove viene il lavoro, chi ha fatto Cruscotto Italia, e che il sito non è l’ente."
+      title="Come citare il progetto"
+      lede="Il riuso è il punto. Le menzioni dicono da dove viene il lavoro, chi ha fatto Cruscotto Italia, e che il sito non è l’ente."
     >
       <section>
         <h2 className="text-xl font-bold">Cosa non toccare</h2>
         <ul>
           <li>
             <code>src/lib/project-origin.ts</code> — crediti di{" "}
-            {PROJECT_ORIGIN.author.name} e del primo esemplare (
-            {PROJECT_ORIGIN.comune_demo}). Il repository da forkare, nello
-            stesso file, è il template vuoto{" "}
+            {PROJECT_ORIGIN.author.name} e del cruscotto di{" "}
+            {PROJECT_ORIGIN.comune_demo}. Il repository da cui partire, nello
+            stesso file, è il template{" "}
             <a href={github} target="_blank" rel="noopener noreferrer">
               magiaslab/cruscotto-comune
             </a>

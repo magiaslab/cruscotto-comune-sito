@@ -45,9 +45,9 @@ export function GuidaContent() {
 
   return (
     <LandingDoc
-      kicker="Guida in 10 minuti"
+      kicker="Guida"
       title="Dal nulla a un cruscotto online"
-      lede="Sei passi, tutti nel browser. Alla fine hai un indirizzo Vercel con i dati aperti del tuo comune. Se vuoi i dettagli, c’è la guida completa."
+      lede="Sei passi, tutti nel browser. Alla fine hai un indirizzo Vercel con i dati aperti del tuo comune. Se vuoi i dettagli, c’è la guida più lunga."
     >
       <div className="not-prose mb-2 flex flex-wrap gap-2">
         <a
@@ -57,7 +57,7 @@ export function GuidaContent() {
           className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[var(--pa-primary)] px-3 py-2 text-sm font-bold text-white no-underline hover:bg-[var(--pa-primary-hover)]"
         >
           <GitHubMark size={16} />
-          Fork su GitHub
+          Crea una copia su GitHub
         </a>
         <a
           href={vercel}
@@ -66,7 +66,7 @@ export function GuidaContent() {
           className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-[var(--pa-border)] bg-white px-3 py-2 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:border-[var(--pa-primary)]"
         >
           <VercelMark size={16} />
-          Deploy su Vercel
+          Pubblica su Vercel
         </a>
         <Link
           href="/riusa"
@@ -95,16 +95,16 @@ export function GuidaContent() {
             <a href={github} target="_blank" rel="noopener noreferrer">
               magiaslab/cruscotto-comune
             </a>
-            , premi <strong>Fork</strong>, conferma. Non toccare questo minisito
-            (è l’hub) e non forkare i cruscotti già esistenti: il primo è San
-            Vincenzo.
+            , premi <strong>Fork</strong>, conferma. Così ottieni una copia del
+            template sul tuo account. Non duplicare questo sito né i cruscotti
+            già online: per quelli c’è la pagina Comuni.
           </p>
         </Step>
         <Step n={3} minutes="3 minuti" title="Pubblica su Vercel">
           <p className="m-0">
             Entra su Vercel con GitHub → <strong>Add New → Project</strong> →
-            la tua copia → <strong>Deploy</strong>. Niente variabili. Aspetta
-            l’indirizzo <code>.vercel.app</code>.
+            la tua copia → <strong>Deploy</strong>. Non compilare variabili
+            d’ambiente. Aspetta l’indirizzo <code>.vercel.app</code>.
           </p>
         </Step>
         <Step n={4} minutes="3 minuti" title="Metti il nome del comune">
@@ -118,7 +118,8 @@ export function GuidaContent() {
         <Step n={5} minutes="1 minuto" title="Controlla i numeri">
           <p className="m-0">
             Apri <code>/api/kpi</code> sul tuo sito. Deve comparire il tuo
-            comune, non un altro. Se no, aspetta il nuovo deploy.
+            comune, non un altro. Se vedi ancora un nome sbagliato, aspetta
+            che Vercel rifaccia il sito.
           </p>
         </Step>
         <Step n={6} minutes="Quando vuoi" title="Racconta che esiste">
@@ -133,7 +134,7 @@ export function GuidaContent() {
       <aside className="guide-callout">
         <p className="m-0 font-bold">Se ti blocchi</p>
         <p className="mb-0 mt-2">
-          La guida estesa è in <Link href="/riusa">Porta nel tuo comune</Link>.
+          La guida più lunga è in <Link href="/riusa">Riuso</Link>.
           Oppure scrivi a{" "}
           <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>.
         </p>

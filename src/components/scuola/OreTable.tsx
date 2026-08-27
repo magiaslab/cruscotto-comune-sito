@@ -11,8 +11,8 @@ export function OreTable({
     <div className="overflow-x-auto">
       <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
         <caption className="mb-3 text-left text-sm text-[var(--pa-muted)]">
-          Formati orari del percorso: ore, che cosa si fa, che cosa resta alla
-          classe.
+          Formati orari del percorso: ore, che cosa si fa, che cosa si porta a
+          casa.
         </caption>
         <thead>
           <tr className="border-b border-[var(--pa-border)]">
@@ -26,7 +26,7 @@ export function OreTable({
               Cosa si fa
             </th>
             <th scope="col" className="py-2 font-semibold">
-              Cosa resta alla classe
+              Alla fine
             </th>
           </tr>
         </thead>

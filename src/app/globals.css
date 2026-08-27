@@ -214,7 +214,7 @@ footer a:hover {
 
 .sezioni-shot-link {
   display: block;
-  margin-top: 0.85rem;
+  margin-top: 0;
   text-decoration: none;
 }
 
@@ -222,9 +222,59 @@ footer a:hover {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  object-position: top;
   border-radius: 0.5rem;
   border: 1px solid var(--pa-border);
   background: var(--pa-surface-soft);
+}
+
+.sezioni-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.sezioni-index a {
+  font-weight: 600;
+}
+
+.sezioni-legenda {
+  max-width: none !important;
+}
+
+.sezioni-legenda .status-pill {
+  margin-right: 0.15rem;
+}
+
+.sezioni-gruppo {
+  scroll-margin-top: 1.25rem;
+}
+
+.sezioni-card {
+  scroll-margin-top: 1.25rem;
+}
+
+.sezioni-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 720px) {
+  .sezioni-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.sezioni-card details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--pa-primary);
 }
 
 .account-grid {
