@@ -59,7 +59,7 @@ export function FontiContent() {
       </section>
 
       <section>
-        <h2 className="text-xl font-bold">Moduli da attivare</h2>
+        <h2 className="text-xl font-bold">Solo se ti servono</h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
             <thead>

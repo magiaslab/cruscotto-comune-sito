@@ -171,7 +171,7 @@ export function LandingHome() {
           <div>
             <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-[var(--pa-ink)]">
               <Sparkles className="h-5 w-5 text-[var(--pa-warning)]" aria-hidden />
-              Moduli da attivare
+                Se il comune ce l’ha
             </h3>
             <ul className="m-0 list-none space-y-2 p-0">
               {OPZIONALI.map((f) => (

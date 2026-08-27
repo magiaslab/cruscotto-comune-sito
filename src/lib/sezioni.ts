@@ -69,7 +69,7 @@ export const SEZIONI_HOME_IDS = [
 
 export const SEZIONI_AMBITO_LABEL: Record<SezioneAmbito, string> = {
   nucleo: "Dati nazionali",
-  opzionale: "Modulo da attivare",
+  opzionale: "Si attiva se serve",
   esemplare: "Per ora su San Vincenzo",
 };
 
