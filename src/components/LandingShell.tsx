@@ -22,6 +22,7 @@ const NAV: { href: string; label: string }[] = [
   { href: "/progetto", label: "Progetto" },
   { href: "/comuni", label: "Comuni" },
   { href: "/riusa", label: "Riuso" },
+  { href: "/scuola", label: "Scuola" },
   { href: "/kit-ente", label: "Kit ente" },
   { href: "/novita", label: "Novità" },
   { href: "/fonti", label: "Fonti" },
@@ -167,6 +168,11 @@ export function LandingShell({ children }: { children: ReactNode }) {
             <li>
               <Link href="/riusa" className="underline-offset-2 hover:underline">
                 Guida al riuso
+              </Link>
+            </li>
+            <li>
+              <Link href="/scuola" className="underline-offset-2 hover:underline">
+                Percorso didattico
               </Link>
             </li>
             <li>

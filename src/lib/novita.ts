@@ -10,6 +10,13 @@ export type NovitaVoce = {
 export const NOVITA: NovitaVoce[] = [
   {
     data: "2026-08-27",
+    titolo: "Percorso Scuola",
+    testo: "Due binari, otto lezioni da due ore, materiali CC BY-SA 4.0. Il binario A non richiede account; nel B gli account sono del docente o della scuola.",
+    href: "/scuola",
+    hrefLabel: "Cruscotto Comune a scuola",
+  },
+  {
+    data: "2026-08-27",
     titolo: "Minisito di progetto",
     testo: "www.cruscottocomune.it è la vetrina: guida in italiano, comuni già nati, kit per l’ente e supporto. Il codice da forkare resta magiaslab/cruscotto-comune, non questo sito.",
     href: "/riusa",

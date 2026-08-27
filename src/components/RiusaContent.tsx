@@ -4,6 +4,7 @@ import { Server, Sparkles } from "lucide-react";
 import { GitHubMark, TelegramMark, VercelMark } from "@/components/BrandMarks";
 import { LandingDoc } from "@/components/LandingDoc";
 import { AUTHOR } from "@/lib/product";
+import { RIUSA_SCUOLA_BOX } from "@/lib/scuola";
 import {
   getTemplateForkUrl,
   getTemplateGithubUrl,
@@ -445,6 +446,13 @@ npm run trasporti:gtfs`}
         {" · "}
         <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>.
       </p>
+      <aside className="guide-callout">
+        <h2 className="guide-h2 mt-0">{RIUSA_SCUOLA_BOX.titolo}</h2>
+        <p>{RIUSA_SCUOLA_BOX.testo}</p>
+        <p className="mb-0">
+          <Link href={RIUSA_SCUOLA_BOX.href}>{RIUSA_SCUOLA_BOX.cta}</Link>
+        </p>
+      </aside>
     </LandingDoc>
   );
 }
