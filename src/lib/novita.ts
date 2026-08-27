@@ -10,6 +10,22 @@ export type NovitaVoce = {
 export const NOVITA: NovitaVoce[] = [
   {
     data: "2026-08-27",
+    titolo: "San Vincenzo 0.3.0: abitanti equivalenti e nuove fonti",
+    testo:
+      "Sul cruscotto di San Vincenzo i rifiuti, le farmacie e i veicoli si leggono anche per abitante equivalente (residenti più presenze turistiche / 365). Nuove fonti nazionali: DAIT (chi amministra), IPA, INGV, ISTAT D7B, WMS EFFIS. Pagine /dati, /confronto, /chi-amministra, export pubblici e embed. Adattatori toscani: SIR, ARRR, Geoscopio, PGRA. Il template da forkare non è ancora allineato.",
+    href: "https://www.cruscottosanvincenzo.it/chi-amministra",
+    hrefLabel: "Apri Chi amministra su San Vincenzo",
+  },
+  {
+    data: "2026-08-27",
+    titolo: "Catalogo delle sezioni, con dati e fonti",
+    testo:
+      "Una pagina del minisito elenca ogni sezione del cruscotto: cosa mostra, a quale fonte è agganciata, se è nucleo, modulo opzionale o esempio acceso su San Vincenzo. Gli screenshot arrivano dal primo cruscotto in produzione.",
+    href: "/sezioni",
+    hrefLabel: "Apri il catalogo sezioni",
+  },
+  {
+    data: "2026-08-27",
     titolo: "Suggerisci e segnala un cruscotto",
     testo: "Stesso wizard di Partecipa su San Vincenzo: i suggerimenti sul minisito diventano issue GitHub. Su Comuni si segnala un cruscotto già realizzato (chi, come, URL) per elenco e mappa.",
     href: "/suggerisci",

@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guida",
     "/kit-ente",
     "/novita",
+    "/sezioni",
     "/fonti",
     "/menzioni",
     "/sostieni",

@@ -25,6 +25,7 @@ const NAV: { href: string; label: string }[] = [
   { href: "/scuola", label: "Scuola" },
   { href: "/kit-ente", label: "Kit ente" },
   { href: "/novita", label: "Novità" },
+  { href: "/sezioni", label: "Sezioni" },
   { href: "/fonti", label: "Fonti" },
   { href: "/menzioni", label: "Menzioni" },
 ];
@@ -189,6 +190,11 @@ export function LandingShell({ children }: { children: ReactNode }) {
             <li>
               <Link href="/novita" className="underline-offset-2 hover:underline">
                 Novità
+              </Link>
+            </li>
+            <li>
+              <Link href="/sezioni" className="underline-offset-2 hover:underline">
+                Sezioni del cruscotto
               </Link>
             </li>
             <li>

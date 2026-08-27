@@ -1,7 +1,10 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import Link from "next/link";
 import {
   GitFork,
   Landmark,
+  LayoutGrid,
   Map,
   Scale,
   Sparkles,
@@ -24,6 +27,7 @@ import {
   getTemplateForkUrl,
   getVercelDeployUrl,
 } from "@/lib/product";
+import { SEZIONI_AMBITO_LABEL, sezioniInHome } from "@/lib/sezioni";
 
 const NAZIONALI = FONTI.filter((f) => f.ambito === "nazionale");
 const OPZIONALI = FONTI.filter((f) => f.ambito === "opzionale");
@@ -226,6 +230,8 @@ export function LandingHome() {
           </p>
       </section>
 
+      <SezioniTeaser />
+
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <h2 className="mb-6 text-2xl font-bold text-[var(--pa-ink)]">
           Tre passi per un nuovo comune
@@ -316,5 +322,66 @@ export function LandingHome() {
         <Cta href="/sostieni">Pagina Supporto</Cta>
       </section>
     </>
+  );
+}
+
+function SezioniTeaser() {
+  const sezioni = sezioniInHome();
+  const dir = join(process.cwd(), "public", "sezioni");
+
+  return (
+    <section className="border-y border-[var(--pa-border)] bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <h2 className="mb-2 flex items-center gap-2 text-2xl font-bold text-[var(--pa-ink)]">
+          <LayoutGrid className="h-6 w-6 text-[var(--pa-primary)]" aria-hidden />
+          Sezioni del cruscotto
+        </h2>
+        <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
+          Ogni pagina ha un set di dati e una o più fonti. Il nucleo funziona con
+          il codice ISTAT; i moduli si accendono in config. Gli screenshot
+          arrivano da San Vincenzo, il primo cruscotto in produzione.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {sezioni.map((sezione) => {
+            const shot =
+              sezione.screenshot &&
+              existsSync(join(dir, `${sezione.id}.jpg`));
+            return (
+              <article
+                key={sezione.id}
+                className="overflow-hidden rounded-xl border border-[var(--pa-border)] bg-[var(--background)]"
+              >
+                {shot ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={sezione.screenshot}
+                    alt={`Schermata della sezione ${sezione.label} sul cruscotto di San Vincenzo.`}
+                    className="h-40 w-full object-cover object-top"
+                    width={1280}
+                    height={800}
+                  />
+                ) : null}
+                <div className="p-5">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--pa-primary)]">
+                    {SEZIONI_AMBITO_LABEL[sezione.ambito]}
+                  </p>
+                  <h3 className="mb-2 text-lg font-bold text-[var(--pa-ink)]">
+                    <Link href={`/sezioni#${sezione.id}`}>{sezione.label}</Link>
+                  </h3>
+                  <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+                    {sezione.intro}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        <p className="mb-0 mt-6">
+          <Link href="/sezioni" className="font-semibold">
+            Tutte le sezioni, con dati e fonti →
+          </Link>
+        </p>
+      </div>
+    </section>
   );
 }

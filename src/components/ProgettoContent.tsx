@@ -126,6 +126,9 @@ export function ProgettoContent() {
             <Link href="/novita">Novità</Link> — cosa è cambiato
           </li>
           <li>
+            <Link href="/sezioni">Sezioni</Link> — dati in pagina e fonti agganciate
+          </li>
+          <li>
             <Link href="/fonti">Fonti</Link> — catalogo nazionale vs opzionale
           </li>
           <li>
