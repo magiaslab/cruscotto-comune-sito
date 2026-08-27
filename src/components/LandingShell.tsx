@@ -191,7 +191,7 @@ export function LandingShell({ children }: { children: ReactNode }) {
           </div>
           <nav
             aria-label="Pagine del sito"
-            className="grid gap-6 text-sm sm:grid-cols-3"
+            className="grid gap-6 text-sm md:grid-cols-3"
           >
             {FOOTER.map((col) => (
               <div key={col.titolo}>
