@@ -1,0 +1,1172 @@
+From b0d8a73fba0a3c10a810938723acf1b8955b765e Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Thu, 27 Aug 2026 16:19:42 +0000
+Subject: [PATCH] =?UTF-8?q?feat:=20sandbox=20/demo/[istat]=20e=20modalit?=
+ =?UTF-8?q?=C3=A0=20didattica?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Lista chiusa di comuni (uno per regione), solo nucleo nazionale AgID,
+cache 24h, noindex, selettore con form GET. Query ?didattica=1: metadati
+KPI da fonti esistenti sotto le card, canonical senza query.
+---
+ CHANGELOG.md                         |   9 ++
+ package-lock.json                    |   7 +-
+ package.json                         |   2 +-
+ src/app/demo/[istat]/page.tsx        | 100 ++++++++++++
+ src/app/demo/page.tsx                |  65 ++++++++
+ src/app/page.tsx                     |   9 +-
+ src/app/robots.ts                    |   2 +-
+ src/components/DashboardView.tsx     |  21 ++-
+ src/components/DemoComuneForm.tsx    |  40 +++++
+ src/components/DemoKpiGrid.tsx       |  76 +++++++++
+ src/components/DidatticaBanner.tsx   |  65 ++++++++
+ src/components/DidatticaProvider.tsx |  21 +++
+ src/components/ui.tsx                |  66 ++++++--
+ src/data/demo-comuni.json            | 170 ++++++++++++++++++++
+ src/lib/dashboard.ts                 |   8 +
+ src/lib/demo-comuni.ts               |  25 +++
+ src/lib/kpi-metadata.ts              | 232 +++++++++++++++++++++++++++
+ src/lib/mcp.ts                       |   6 +-
+ 18 files changed, 896 insertions(+), 28 deletions(-)
+ create mode 100644 src/app/demo/[istat]/page.tsx
+ create mode 100644 src/app/demo/page.tsx
+ create mode 100644 src/components/DemoComuneForm.tsx
+ create mode 100644 src/components/DemoKpiGrid.tsx
+ create mode 100644 src/components/DidatticaBanner.tsx
+ create mode 100644 src/components/DidatticaProvider.tsx
+ create mode 100644 src/data/demo-comuni.json
+ create mode 100644 src/lib/demo-comuni.ts
+ create mode 100644 src/lib/kpi-metadata.ts
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 60a028c..b0634bf 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -9,6 +9,15 @@ questo file riguarda solo il **codice**.
+ 
+ Come mergiare: [`docs/aggiornamenti-upstream.md`](docs/aggiornamenti-upstream.md).
+ 
++## 0.2.2 — 2026-08-27
++
++- Sandbox didattica `/demo` e `/demo/[istat]`: lista chiusa di comuni (uno per
++  regione), solo nucleo nazionale AgID, cache 24h, `noindex`, selettore con
++  form GET senza JavaScript.
++- Modalità `?didattica=1`: metadati KPI (misura, ente, frequenza, licenza)
++  sotto le card, canonical senza query. KPI senza voce in catalogo: non si
++  inventano (elenco in `src/lib/kpi-metadata.ts`).
++
+ ## 0.2.1 — 2026-08-27
+ 
+ - SEO: pagine progetto con contenuto reale (niente stub JS), italiano di
+diff --git a/package-lock.json b/package-lock.json
+index 844bc5f..750c19a 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "cruscotto-comune",
+-  "version": "0.1.0",
++  "version": "0.2.2",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "cruscotto-comune",
+-      "version": "0.1.0",
++      "version": "0.2.2",
+       "license": "UNLICENSED",
+       "dependencies": {
+         "@modelcontextprotocol/sdk": "^1.30.0",
+@@ -35,6 +35,9 @@
+         "eslint-config-next": "^16.3.3",
+         "tailwindcss": "^4",
+         "typescript": "^5"
++      },
++      "engines": {
++        "node": ">=20.9.0"
+       }
+     },
+     "node_modules/@alloc/quick-lru": {
+diff --git a/package.json b/package.json
+index b69a46e..3e1f1c9 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "cruscotto-comune",
+-  "version": "0.2.1",
++  "version": "0.2.2",
+   "private": true,
+   "author": "Alessandro Cipriani <cipriani.alessandro@gmail.com>",
+   "description": "Template Next.js da forkare per una dashboard di dati aperti di un comune italiano. Nucleo AgID/ISTAT, moduli opzionali accendibili.",
+diff --git a/src/app/demo/[istat]/page.tsx b/src/app/demo/[istat]/page.tsx
+new file mode 100644
+index 0000000..6ce8b9b
+--- /dev/null
++++ b/src/app/demo/[istat]/page.tsx
+@@ -0,0 +1,100 @@
++import type { Metadata } from "next";
++import { notFound } from "next/navigation";
++import { DemoComuneForm } from "@/components/DemoComuneForm";
++import { DemoDidatticaBanners } from "@/components/DidatticaBanner";
++import { DemoKpiGrid } from "@/components/DemoKpiGrid";
++import { DidatticaProvider } from "@/components/DidatticaProvider";
++import { Footer } from "@/components/Footer";
++import { Header } from "@/components/Header";
++import { getCachedKpiFor } from "@/lib/dashboard";
++import {
++  DEMO_COMUNI,
++  demoComuneByIstat,
++} from "@/lib/demo-comuni";
++
++export const revalidate = 86400;
++export const dynamicParams = false;
++
++export function generateStaticParams() {
++  return DEMO_COMUNI.map((c) => ({ istat: c.istat }));
++}
++
++export async function generateMetadata({
++  params,
++}: {
++  params: Promise<{ istat: string }>;
++}): Promise<Metadata> {
++  const { istat } = await params;
++  const comune = demoComuneByIstat(istat);
++  const title = comune
++    ? `Anteprima didattica — ${comune.nome}`
++    : "Anteprima didattica";
++  return {
++    title,
++    description:
++      "Sandbox didattica sul nucleo nazionale di KPI AgID. Non è un cruscotto ufficiale del comune.",
++    robots: { index: false, follow: false },
++    alternates: { canonical: `/demo/${istat}` },
++  };
++}
++
++export default async function Page({
++  params,
++  searchParams,
++}: {
++  params: Promise<{ istat: string }>;
++  searchParams: Promise<{ didattica?: string }>;
++}) {
++  const { istat } = await params;
++  const comune = demoComuneByIstat(istat);
++  if (!comune) notFound();
++  const didattica = (await searchParams).didattica === "1";
++
++  let kpi: Record<string, unknown> = {};
++  let error: string | null = null;
++  try {
++    kpi = await getCachedKpiFor(istat);
++  } catch (err) {
++    console.error(err);
++    error =
++      "Non è stato possibile recuperare i KPI da Cruscotto Italia. Riprova più tardi.";
++  }
++
++  return (
++    <div className="flex min-h-screen flex-col bg-[var(--background)]">
++      <DemoDidatticaBanners
++        didattica={didattica}
++        cleanPath={`/demo/${istat}`}
++      />
++      <Header brandAsHeading={false} />
++      <main
++        id="contenuto-principale"
++        className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6"
++      >
++        <h1 className="mb-2 text-2xl font-bold text-[var(--pa-ink)] sm:text-3xl">
++          Anteprima didattica — {comune.nome}
++        </h1>
++        <p className="max-w-prose text-sm text-[var(--pa-muted)]">
++          {comune.regione} ({comune.provincia}), codice ISTAT {comune.istat}.
++          Solo nucleo nazionale. Porto, balneazione, treni, GTFS locale,
++          erosione costiera, acqua SII, eventi comunali e allerte SIR restano
++          spenti. Progetto indipendente, non ufficiale: non affiliato ad AgID,
++          al Governo o al Comune di {comune.nome}.
++        </p>
++        <div className="mt-6 mb-8">
++          <DemoComuneForm currentIstat={istat} didattica={didattica} />
++        </div>
++        {error ? (
++          <p className="rounded-lg border border-[#d9364f] bg-[#fce8eb] p-4">
++            {error}
++          </p>
++        ) : (
++          <DidatticaProvider active={didattica}>
++            <DemoKpiGrid kpi={kpi} />
++          </DidatticaProvider>
++        )}
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/app/demo/page.tsx b/src/app/demo/page.tsx
+new file mode 100644
+index 0000000..d485c37
+--- /dev/null
++++ b/src/app/demo/page.tsx
+@@ -0,0 +1,65 @@
++import type { Metadata } from "next";
++import { redirect } from "next/navigation";
++import { DemoComuneForm } from "@/components/DemoComuneForm";
++import { DemoDidatticaBanners } from "@/components/DidatticaBanner";
++import { Footer } from "@/components/Footer";
++import { Header } from "@/components/Header";
++import {
++  DEMO_COMUNI,
++  isDemoIstat,
++} from "@/lib/demo-comuni";
++
++export const revalidate = 86400;
++
++export const metadata: Metadata = {
++  title: "Anteprima didattica",
++  description:
++    "Sandbox didattica: nucleo nazionale di KPI AgID per una lista chiusa di comuni. Non è un cruscotto ufficiale.",
++  robots: { index: false, follow: false },
++  alternates: { canonical: "/demo" },
++};
++
++export default async function Page({
++  searchParams,
++}: {
++  searchParams: Promise<{ istat?: string; didattica?: string }>;
++}) {
++  const sp = await searchParams;
++  const istat = sp.istat?.trim() ?? "";
++  const didattica = sp.didattica === "1";
++  if (istat && isDemoIstat(istat)) {
++    redirect(`/demo/${istat}${didattica ? "?didattica=1" : ""}`);
++  }
++
++  return (
++    <div className="flex min-h-screen flex-col bg-[var(--background)]">
++      <DemoDidatticaBanners didattica={didattica} cleanPath="/demo" />
++      <Header brandAsHeading={false} />
++      <main id="contenuto-principale" className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6">
++        <h1 className="mb-3 text-2xl font-bold text-[var(--pa-ink)] sm:text-3xl">
++          Anteprima didattica
++        </h1>
++        <p className="max-w-prose text-[var(--pa-muted)]">
++          Lista chiusa di comuni, uno per regione. Solo il nucleo nazionale
++          (KPI AgID per codice ISTAT). I moduli opzionali restano spenti.
++          Cache 24 ore: una classe sulla stessa pagina non genera una chiamata
++          a studente. Scegli un comune e apri l&apos;anteprima. Zero JavaScript
++          sul selettore: è un form GET.
++        </p>
++        <div className="mt-6">
++          <DemoComuneForm didattica={didattica} />
++        </div>
++        <ul className="mt-8 columns-1 gap-2 sm:columns-2">
++          {DEMO_COMUNI.map((c) => (
++            <li key={c.istat} className="mb-1 break-inside-avoid">
++              <a href={`/demo/${c.istat}${didattica ? "?didattica=1" : ""}`}>
++                {c.nome} — {c.regione} ({c.istat})
++              </a>
++            </li>
++          ))}
++        </ul>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 455d1a5..d4cc003 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -11,11 +11,16 @@ export const metadata: Metadata = {
+   alternates: { canonical: "/" },
+ };
+ 
+-export default async function Home() {
++export default async function Home({
++  searchParams,
++}: {
++  searchParams: Promise<{ didattica?: string }>;
++}) {
++  const didattica = (await searchParams).didattica === "1";
+   return (
+     <>
+       <JsonLd data={buildHomeJsonLd()} />
+-      <DashboardView />
++      <DashboardView didattica={didattica} />
+     </>
+   );
+ }
+diff --git a/src/app/robots.ts b/src/app/robots.ts
+index c651785..02b6327 100644
+--- a/src/app/robots.ts
++++ b/src/app/robots.ts
+@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
+       {
+         userAgent: "*",
+         allow: "/",
+-        disallow: ["/api/"],
++        disallow: ["/api/", "/demo"],
+       },
+     ],
+     sitemap: absoluteUrl("/sitemap.xml"),
+diff --git a/src/components/DashboardView.tsx b/src/components/DashboardView.tsx
+index 2dc97e9..9c6d6a2 100644
+--- a/src/components/DashboardView.tsx
++++ b/src/components/DashboardView.tsx
+@@ -1,5 +1,7 @@
+ import { DashboardSetup } from "@/components/DashboardSetup";
+ import { DashboardTabs } from "@/components/DashboardTabs";
++import { DidatticaHomeBanner } from "@/components/DidatticaBanner";
++import { DidatticaProvider } from "@/components/DidatticaProvider";
+ import { Footer } from "@/components/Footer";
+ import { Header } from "@/components/Header";
+ import { JsonLd } from "@/components/JsonLd";
+@@ -8,7 +10,11 @@ import { getCachedKpi } from "@/lib/dashboard";
+ import { buildHomeJsonLd } from "@/lib/seo";
+ import { getSection } from "@/lib/sections";
+ 
+-export async function DashboardView() {
++export async function DashboardView({
++  didattica = false,
++}: {
++  didattica?: boolean;
++}) {
+   if (!isComuneConfigured()) {
+     return (
+       <div className="flex min-h-screen flex-col bg-[var(--background)]">
+@@ -60,11 +66,14 @@ export async function DashboardView() {
+   return (
+     <>
+       {homeJsonLd}
+-      <DashboardTabs
+-        kpi={kpi}
+-        generatedAt={generatedAt}
+-        seoIntro={{ h1: home.h1, intro: home.intro }}
+-      />
++      <DidatticaHomeBanner didattica={didattica} />
++      <DidatticaProvider active={didattica}>
++        <DashboardTabs
++          kpi={kpi}
++          generatedAt={generatedAt}
++          seoIntro={{ h1: home.h1, intro: home.intro }}
++        />
++      </DidatticaProvider>
+     </>
+   );
+ }
+diff --git a/src/components/DemoComuneForm.tsx b/src/components/DemoComuneForm.tsx
+new file mode 100644
+index 0000000..fc0dea8
+--- /dev/null
++++ b/src/components/DemoComuneForm.tsx
+@@ -0,0 +1,40 @@
++import { DEMO_COMUNI } from "@/lib/demo-comuni";
++
++export function DemoComuneForm({
++  currentIstat,
++  didattica,
++}: {
++  currentIstat?: string;
++  didattica: boolean;
++}) {
++  return (
++    <form
++      method="get"
++      action="/demo"
++      className="flex flex-wrap items-end gap-3"
++    >
++      <label className="flex min-w-[12rem] flex-1 flex-col gap-1 text-sm font-semibold text-[var(--pa-ink)]">
++        Comune
++        <select
++          id="istat"
++          name="istat"
++          defaultValue={currentIstat ?? DEMO_COMUNI[0]?.istat}
++          className="min-h-11 rounded-lg border border-[var(--pa-border)] bg-white px-3 text-base font-normal"
++        >
++          {DEMO_COMUNI.map((c) => (
++            <option key={c.istat} value={c.istat}>
++              {c.nome} ({c.provincia}) — {c.regione}
++            </option>
++          ))}
++        </select>
++      </label>
++      {didattica ? <input type="hidden" name="didattica" value="1" /> : null}
++      <button
++        type="submit"
++        className="inline-flex min-h-11 items-center rounded-lg bg-[var(--pa-primary)] px-4 text-sm font-bold text-white hover:bg-[var(--pa-primary-hover)]"
++      >
++        Apri
++      </button>
++    </form>
++  );
++}
+diff --git a/src/components/DemoKpiGrid.tsx b/src/components/DemoKpiGrid.tsx
+new file mode 100644
+index 0000000..774f956
+--- /dev/null
++++ b/src/components/DemoKpiGrid.tsx
+@@ -0,0 +1,76 @@
++import { KpiCard, valueOrMissing } from "@/components/ui";
++import { formatDecimal, formatEuro, formatInteger } from "@/lib/format";
++
++function asRecord(v: unknown): Record<string, unknown> | null {
++  return v && typeof v === "object" && !Array.isArray(v)
++    ? (v as Record<string, unknown>)
++    : null;
++}
++
++function num(v: unknown): number | null {
++  return typeof v === "number" && !Number.isNaN(v) ? v : null;
++}
++
++export function DemoKpiGrid({ kpi }: { kpi: Record<string, unknown> }) {
++  const demo = asRecord(kpi.demografia);
++  const turismo = asRecord(kpi.turismo);
++  const redditi = asRecord(kpi.redditi_mef);
++  const ambiente = asRecord(kpi.ambiente);
++  const banda = asRecord(kpi.banda_larga_agcom);
++  const pnrr = asRecord(kpi.pnrr);
++  const siope = asRecord(kpi.siope);
++  const imprese = asRecord(kpi.imprese_asia);
++
++  const cards: { label: string; value: string; hint?: string }[] = [
++    {
++      label: "Popolazione",
++      value: valueOrMissing(demo?.popolazione, formatInteger),
++      hint: String(demo?.riferimento ?? ""),
++    },
++    {
++      label: "Reddito medio",
++      value: valueOrMissing(redditi?.reddito_medio_eur, formatEuro),
++      hint: redditi?.n_contribuenti
++        ? `${formatInteger(num(redditi.n_contribuenti))} contribuenti`
++        : undefined,
++    },
++    {
++      label: "Indice turisticità",
++      value: valueOrMissing(turismo?.indice_turisticita_per_100ab, (v) =>
++        `${formatDecimal(v, 1)} /100 ab.`,
++      ),
++    },
++    {
++      label: "Raccolta differenziata",
++      value: valueOrMissing(ambiente?.raccolta_differenziata_pct, (v) =>
++        `${formatDecimal(v, 1)}%`,
++      ),
++    },
++    {
++      label: "Copertura FTTH",
++      value: valueOrMissing(banda?.copertura_ftth_pct, (v) =>
++        `${formatDecimal(v, 1)}%`,
++      ),
++    },
++    {
++      label: "Unità locali ASIA",
++      value: valueOrMissing(imprese?.unita_locali, formatInteger),
++    },
++    {
++      label: "Saldo cassa SIOPE",
++      value: valueOrMissing(siope?.saldo_cassa, formatEuro),
++    },
++    {
++      label: "PNRR",
++      value: valueOrMissing(pnrr?.n_progetti, formatInteger),
++    },
++  ];
++
++  return (
++    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
++      {cards.map((c) => (
++        <KpiCard key={c.label} label={c.label} value={c.value} hint={c.hint} />
++      ))}
++    </div>
++  );
++}
+diff --git a/src/components/DidatticaBanner.tsx b/src/components/DidatticaBanner.tsx
+new file mode 100644
+index 0000000..f847aa8
+--- /dev/null
++++ b/src/components/DidatticaBanner.tsx
+@@ -0,0 +1,65 @@
++import Link from "next/link";
++import { DEMO_RIUSA_URL, DEMO_SCUOLA_URL } from "@/lib/demo-comuni";
++
++export function DemoDidatticaBanners({
++  didattica,
++  cleanPath,
++}: {
++  didattica: boolean;
++  cleanPath: string;
++}) {
++  return (
++    <div className="space-y-0">
++      <p className="m-0 bg-[var(--pa-ink)] px-4 py-2 text-center text-sm text-white">
++        Anteprima didattica. Per avere il cruscotto del tuo comune serve il fork
++        —{" "}
++        <a
++          href={DEMO_RIUSA_URL}
++          className="font-semibold text-white underline"
++          rel="noopener noreferrer"
++        >
++          guida al riuso
++        </a>
++        . Percorso per le classi:{" "}
++        <a
++          href={DEMO_SCUOLA_URL}
++          className="font-semibold text-white underline"
++          rel="noopener noreferrer"
++        >
++          /scuola
++        </a>
++        .
++      </p>
++      {didattica ? (
++        <p className="m-0 border-b border-[var(--pa-border)] bg-[var(--pa-surface-soft)] px-4 py-2 text-center text-sm text-[var(--pa-ink)]">
++          Modalità didattica attiva. Sotto ogni KPI, se il metadato esiste in
++          catalogo: che cosa misura, chi lo produce, frequenza, licenza.{" "}
++          <Link href={cleanPath} className="font-semibold">
++            URL pulito (esci dalla modalità)
++          </Link>
++          .
++        </p>
++      ) : (
++        <p className="m-0 border-b border-[var(--pa-border)] bg-white px-4 py-2 text-center text-sm text-[var(--pa-muted)]">
++          <Link href={`${cleanPath}?didattica=1`} className="font-semibold">
++            Attiva la modalità didattica
++          </Link>{" "}
++          per leggere fonte e licenza sotto i numeri.
++        </p>
++      )}
++    </div>
++  );
++}
++
++export function DidatticaHomeBanner({ didattica }: { didattica: boolean }) {
++  if (!didattica) return null;
++  return (
++    <p className="m-0 border-b border-[var(--pa-border)] bg-[var(--pa-surface-soft)] px-4 py-2 text-center text-sm text-[var(--pa-ink)]">
++      Modalità didattica attiva.{" "}
++      <Link href="/" className="font-semibold">
++        Torna all&apos;URL pulito
++      </Link>
++      .
++    </p>
++  );
++}
+diff --git a/src/components/DidatticaProvider.tsx b/src/components/DidatticaProvider.tsx
+new file mode 100644
+index 0000000..b8ea06e
+--- /dev/null
++++ b/src/components/DidatticaProvider.tsx
+@@ -0,0 +1,21 @@
++"use client";
++
++import { createContext, useContext, type ReactNode } from "react";
++
++const DidatticaContext = createContext(false);
++
++export function DidatticaProvider({
++  active,
++  children,
++}: {
++  active: boolean;
++  children: ReactNode;
++}) {
++  return (
++    <DidatticaContext.Provider value={active}>{children}</DidatticaContext.Provider>
++  );
++}
++
++export function useDidattica() {
++  return useContext(DidatticaContext);
++}
+diff --git a/src/components/ui.tsx b/src/components/ui.tsx
+index 1f4038b..0c32f3f 100644
+--- a/src/components/ui.tsx
++++ b/src/components/ui.tsx
+@@ -12,6 +12,8 @@ import { isMissing } from "@/lib/format";
+ import { useT } from "@/lib/i18n";
+ import { getFormatLocale } from "@/lib/i18n/locale-store";
+ import { resolveKpiIcon } from "@/lib/kpi-icons";
++import { useDidattica } from "@/components/DidatticaProvider";
++import { kpiMetadatoForLabel } from "@/lib/kpi-metadata";
+ 
+ type KpiCardProps = {
+   label: string;
+@@ -40,6 +42,8 @@ export function KpiCard({
+   onDetail,
+ }: KpiCardProps) {
+   const t = useT();
++  const didattica = useDidattica();
++  const meta = didattica ? kpiMetadatoForLabel(label) : undefined;
+   const Icon = resolveKpiIcon(label, icon);
+   const empty =
+     unavailable ||
+@@ -124,24 +128,60 @@ export function KpiCard({
+     </>
+   );
+ 
++  const metaBlock = meta ? (
++    <details className="mt-2 border-t border-[var(--pa-border)] pt-2 text-left text-xs text-[var(--pa-muted)]">
++      <summary className="cursor-pointer font-semibold text-[var(--pa-ink)]">
++        Che cosa misura, chi, frequenza, licenza
++      </summary>
++      <dl className="mb-0 mt-2 grid gap-1">
++        <div>
++          <dt className="inline font-semibold">Che cosa misura. </dt>
++          <dd className="inline m-0">{meta.misura}</dd>
++        </div>
++        <div>
++          <dt className="inline font-semibold">Chi. </dt>
++          <dd className="inline m-0">{meta.ente}</dd>
++        </div>
++        <div>
++          <dt className="inline font-semibold">Frequenza. </dt>
++          <dd className="inline m-0">{meta.frequenza}</dd>
++        </div>
++        <div>
++          <dt className="inline font-semibold">Licenza. </dt>
++          <dd className="inline m-0">
++            {meta.licenza} ({meta.fonteNome})
++          </dd>
++        </div>
++      </dl>
++    </details>
++  ) : null;
++
+   if (clickable) {
+     return (
+-      <button
+-        type="button"
+-        className={className}
+-        onClick={onDetail}
+-        aria-label={
+-          detailLabel
+-            ? `${label}: ${t("vai alla sezione")} ${detailLabel}`
+-            : `${label}: ${t("vai al dettaglio")}`
+-        }
+-      >
+-        {body}
+-      </button>
++      <article className={className}>
++        <button
++          type="button"
++          className="w-full bg-transparent p-0 text-left"
++          onClick={onDetail}
++          aria-label={
++            detailLabel
++              ? `${label}: ${t("vai alla sezione")} ${detailLabel}`
++              : `${label}: ${t("vai al dettaglio")}`
++          }
++        >
++          {body}
++        </button>
++        {metaBlock}
++      </article>
+     );
+   }
+ 
+-  return <article className={className}>{body}</article>;
++  return (
++    <article className={className}>
++      {body}
++      {metaBlock}
++    </article>
++  );
+ }
+ 
+ export function SectionIntro({
+diff --git a/src/data/demo-comuni.json b/src/data/demo-comuni.json
+new file mode 100644
+index 0000000..3c0eb87
+--- /dev/null
++++ b/src/data/demo-comuni.json
+@@ -0,0 +1,170 @@
++[
++  {
++    "istat": "001272",
++    "nome": "Torino",
++    "regione": "Piemonte",
++    "provincia": "TO",
++    "lat": 45.0703,
++    "lon": 7.6869
++  },
++  {
++    "istat": "007003",
++    "nome": "Aosta",
++    "regione": "Valle d'Aosta",
++    "provincia": "AO",
++    "lat": 45.737,
++    "lon": 7.315
++  },
++  {
++    "istat": "015146",
++    "nome": "Milano",
++    "regione": "Lombardia",
++    "provincia": "MI",
++    "lat": 45.4642,
++    "lon": 9.19
++  },
++  {
++    "istat": "022205",
++    "nome": "Trento",
++    "regione": "Trentino-Alto Adige",
++    "provincia": "TN",
++    "lat": 46.0664,
++    "lon": 11.1257
++  },
++  {
++    "istat": "021008",
++    "nome": "Bolzano",
++    "regione": "Trentino-Alto Adige",
++    "provincia": "BZ",
++    "lat": 46.4983,
++    "lon": 11.3548
++  },
++  {
++    "istat": "027042",
++    "nome": "Venezia",
++    "regione": "Veneto",
++    "provincia": "VE",
++    "lat": 45.4408,
++    "lon": 12.3155
++  },
++  {
++    "istat": "032006",
++    "nome": "Trieste",
++    "regione": "Friuli-Venezia Giulia",
++    "provincia": "TS",
++    "lat": 45.6495,
++    "lon": 13.7768
++  },
++  {
++    "istat": "010025",
++    "nome": "Genova",
++    "regione": "Liguria",
++    "provincia": "GE",
++    "lat": 44.4056,
++    "lon": 8.9463
++  },
++  {
++    "istat": "037006",
++    "nome": "Bologna",
++    "regione": "Emilia-Romagna",
++    "provincia": "BO",
++    "lat": 44.4949,
++    "lon": 11.3426
++  },
++  {
++    "istat": "048017",
++    "nome": "Firenze",
++    "regione": "Toscana",
++    "provincia": "FI",
++    "lat": 43.7696,
++    "lon": 11.2558
++  },
++  {
++    "istat": "054039",
++    "nome": "Perugia",
++    "regione": "Umbria",
++    "provincia": "PG",
++    "lat": 43.1107,
++    "lon": 12.3908
++  },
++  {
++    "istat": "042002",
++    "nome": "Ancona",
++    "regione": "Marche",
++    "provincia": "AN",
++    "lat": 43.6158,
++    "lon": 13.5189
++  },
++  {
++    "istat": "058091",
++    "nome": "Roma",
++    "regione": "Lazio",
++    "provincia": "RM",
++    "lat": 41.9028,
++    "lon": 12.4964
++  },
++  {
++    "istat": "066049",
++    "nome": "L'Aquila",
++    "regione": "Abruzzo",
++    "provincia": "AQ",
++    "lat": 42.3498,
++    "lon": 13.3995
++  },
++  {
++    "istat": "070006",
++    "nome": "Campobasso",
++    "regione": "Molise",
++    "provincia": "CB",
++    "lat": 41.5603,
++    "lon": 14.6627
++  },
++  {
++    "istat": "063049",
++    "nome": "Napoli",
++    "regione": "Campania",
++    "provincia": "NA",
++    "lat": 40.8518,
++    "lon": 14.2681
++  },
++  {
++    "istat": "072006",
++    "nome": "Bari",
++    "regione": "Puglia",
++    "provincia": "BA",
++    "lat": 41.1171,
++    "lon": 16.8719
++  },
++  {
++    "istat": "076063",
++    "nome": "Potenza",
++    "regione": "Basilicata",
++    "provincia": "PZ",
++    "lat": 40.6404,
++    "lon": 15.8056
++  },
++  {
++    "istat": "079023",
++    "nome": "Catanzaro",
++    "regione": "Calabria",
++    "provincia": "CZ",
++    "lat": 38.9106,
++    "lon": 16.5877
++  },
++  {
++    "istat": "082053",
++    "nome": "Palermo",
++    "regione": "Sicilia",
++    "provincia": "PA",
++    "lat": 38.1157,
++    "lon": 13.3615
++  },
++  {
++    "istat": "092009",
++    "nome": "Cagliari",
++    "regione": "Sardegna",
++    "provincia": "CA",
++    "lat": 39.2238,
++    "lon": 9.1217
++  }
++]
+diff --git a/src/lib/dashboard.ts b/src/lib/dashboard.ts
+index 5ad2ad7..d21aec5 100644
+--- a/src/lib/dashboard.ts
++++ b/src/lib/dashboard.ts
+@@ -8,6 +8,14 @@ export const getCachedKpi = unstable_cache(
+   { revalidate: 86400, tags: ["kpi", `kpi-${ISTAT_CODE}`] },
+ );
+ 
++export function getCachedKpiFor(istat: string) {
++  return unstable_cache(
++    async () => fetchComuneKpi(istat),
++    ["comune-kpi", istat],
++    { revalidate: 86400, tags: ["kpi", `kpi-${istat}`] },
++  )();
++}
++
+ export const getCachedDashboard = unstable_cache(
+   async () => fetchComuneDashboard(),
+   ["comune-dashboard", ISTAT_CODE],
+diff --git a/src/lib/demo-comuni.ts b/src/lib/demo-comuni.ts
+new file mode 100644
+index 0000000..297a301
+--- /dev/null
++++ b/src/lib/demo-comuni.ts
+@@ -0,0 +1,25 @@
++import demoJson from "@/data/demo-comuni.json";
++
++export type DemoComune = {
++  istat: string;
++  nome: string;
++  regione: string;
++  provincia: string;
++  lat: number;
++  lon: number;
++};
++
++export const DEMO_COMUNI: DemoComune[] = demoJson as DemoComune[];
++
++const BY_ISTAT = new Map(DEMO_COMUNI.map((c) => [c.istat, c]));
++
++export function demoComuneByIstat(istat: string): DemoComune | undefined {
++  return BY_ISTAT.get(istat);
++}
++
++export function isDemoIstat(istat: string): boolean {
++  return BY_ISTAT.has(istat);
++}
++
++export const DEMO_RIUSA_URL = "https://www.cruscottocomune.it/riusa";
++export const DEMO_SCUOLA_URL = "https://www.cruscottocomune.it/scuola";
+diff --git a/src/lib/kpi-metadata.ts b/src/lib/kpi-metadata.ts
+new file mode 100644
+index 0000000..d48dcaa
+--- /dev/null
++++ b/src/lib/kpi-metadata.ts
+@@ -0,0 +1,232 @@
++/**
++ * Metadati KPI per la modalità didattica (`?didattica=1`).
++ * Derivati da `src/lib/fonti.ts`. Non inventare cadenza o licenza.
++ */
++
++import { FONTI, type FonteVoce } from "@/lib/fonti";
++
++export type KpiMetadato = {
++  misura: string;
++  ente: string;
++  frequenza: string;
++  licenza: string;
++  fonteNome: string;
++  url: string;
++};
++
++function fromFonte(
++  nome: string,
++  misura: string,
++  frequenza: string,
++): KpiMetadato {
++  const fonte: FonteVoce | undefined = FONTI.find((f) => f.nome === nome);
++  if (!fonte) {
++    throw new Error(`Fonte non trovata nel catalogo: ${nome}`);
++  }
++  return {
++    misura,
++    ente: fonte.ente,
++    frequenza,
++    licenza: fonte.licenza,
++    fonteNome: fonte.nome,
++    url: fonte.url,
++  };
++}
++
++const AGID = fromFonte(
++  "Cruscotto Italia (MCP)",
++  "Indicatore comunale filtrato per codice ISTAT, dal nucleo nazionale AgID.",
++  "Eredita la cadenza della fonte primaria. In classe si legge la data sul dato, non si assume.",
++);
++
++const OSM = fromFonte(
++  "OpenStreetMap / Overpass / CARTO",
++  "Oggetti geografici sul territorio (mappe, servizi, accessibilità).",
++  "Continuo, a cura dei volontari. La data sta nei metadati OSM.",
++);
++
++const METEO = fromFonte(
++  "Open-Meteo + RainViewer + ItaliaMeteo",
++  "Meteo live e previsioni.",
++  "Live / previsioni. Non è una serie storica di lungo periodo.",
++);
++
++const ALLERTE = fromFonte(
++  "Allerte Protezione Civile",
++  "Allerte meteo-idrogeologiche per il comune.",
++  "Bollettini quando c'è un'allerta. Non è una serie storica.",
++);
++
++const ISPRA = fromFonte(
++  "Catasto rifiuti ISPRA",
++  "Rifiuti urbani e raccolta differenziata, filtro ISTAT.",
++  "CSV nazionale; la cadenza si legge sul dataset. Non assumere l'anno.",
++);
++
++const OMI = fromFonte(
++  "OMI — quotazioni immobiliari",
++  "Quotazioni immobiliari OMI per zona.",
++  "Snapshot locale. La data sta nel file.",
++);
++
++const MIUR = fromFonte(
++  "Scuole MIUR",
++  "Anagrafe delle scuole del comune (serve il codice catastale).",
++  "Open data MIM. La data si legge sul dataset.",
++);
++
++const FARMACIE = fromFonte(
++  "Farmacie di turno",
++  "Farmacie e turni del giorno.",
++  "Turni del giorno sul sito pubblico.",
++);
++
++const DAE = fromFonte(
++  "DAE / OpenAEDMap",
++  "Defibrillatori georeferenziati.",
++  "Export da OpenStreetMap. Data dell'export sul file.",
++);
++
++const EV = fromFonte(
++  "Colonnine EV e carburanti",
++  "Punti di ricarica e/o impianti carburanti.",
++  "Indicativo. Verificare la data sulla fonte, non sul cruscotto.",
++);
++
++const DVNS = fromFonte(
++  "DoveVannoINostriSoldi (IRPEF / OpenCivitas)",
++  "Indicatori di finanza / IRPEF a scala comunale.",
++  "Periodo fiscale sulla fonte. Non sostituisce il SIOPE AgID.",
++);
++
++/** Etichetta italiana → metadato. Alias inglese per quando la UI è in en. */
++const BY_LABEL: Record<string, KpiMetadato> = {};
++
++function alias(it: string, en: string, meta: KpiMetadato) {
++  BY_LABEL[it] = meta;
++  BY_LABEL[en] = meta;
++}
++
++alias("Popolazione", "Population", {
++  ...AGID,
++  misura: "Residenti nel comune.",
++});
++alias("Età media", "Average age", {
++  ...AGID,
++  misura: "Età media della popolazione residente.",
++});
++alias("Indice di vecchiaia", "Old-age index", {
++  ...AGID,
++  misura: "Rapporto fra popolazione anziana e popolazione giovane.",
++});
++alias("Indice di dipendenza", "Dependency ratio", {
++  ...AGID,
++  misura: "Rapporto fra popolazione non in età da lavoro e popolazione in età da lavoro.",
++});
++alias("Maschi / Femmine", "Male / Female", {
++  ...AGID,
++  misura: "Composizione per sesso della popolazione.",
++});
++alias("Tasso occupazione", "Employment rate", {
++  ...AGID,
++  misura: "Occupati sul totale della popolazione di riferimento.",
++});
++alias("Diploma o oltre", "Upper secondary or higher", {
++  ...AGID,
++  misura: "Quota di popolazione con almeno il diploma.",
++});
++alias("Reddito medio", "Average income", {
++  ...AGID,
++  misura: "Reddito medio dei contribuenti (MEF, via Cruscotto Italia).",
++});
++alias("Indice turisticità", "Tourism intensity index", {
++  ...AGID,
++  misura: "Presenze turistiche rapportate alla popolazione (non persone contemporaneamente presenti).",
++});
++alias("Raccolta differenziata", "Separate waste collection", ISPRA);
++alias("Consumo di suolo", "Land consumption", {
++  ...AGID,
++  misura: "Consumo di suolo; la fonte primaria è ambientale (ISPRA / territorio AgID). Verificare periodo e definizione sulla scheda.",
++});
++alias("Copertura FTTH", "FTTH coverage", {
++  ...AGID,
++  misura: "Copertura banda ultra-larga FTTH (AGCOM via Cruscotto Italia).",
++});
++alias("Farmacie", "Pharmacies", FARMACIE);
++alias("Punti ricarica EV", "EV charging points", EV);
++alias("Impianti carburanti", "Fuel stations", EV);
++alias("Accessibilità OSM", "OSM accessibility", OSM);
++alias("Enti RUNTS", "RUNTS entities", {
++  ...AGID,
++  misura: "Enti del Terzo settore iscritti al RUNTS nel comune.",
++});
++alias("Unità locali ASIA", "ASIA local units", {
++  ...AGID,
++  misura: "Unità locali delle imprese (ASIA).",
++});
++alias("Saldo cassa SIOPE", "SIOPE cash balance", {
++  ...AGID,
++  misura: "Saldo di cassa del comune (SIOPE).",
++});
++alias("PNRR", "NRRP", {
++  ...AGID,
++  misura: "Progetti PNRR sul comune.",
++});
++alias("Opere BDAP", "BDAP public works", {
++  ...AGID,
++  misura: "Opere pubbliche (BDAP).",
++});
++alias("Contratti ANAC", "ANAC contracts", {
++  ...AGID,
++  misura: "Contratti pubblici (ANAC).",
++});
++alias("Patrimonio PA", "PA real estate", {
++  ...AGID,
++  misura: "Patrimonio immobiliare della PA nel comune.",
++});
++alias("Civici ANNCSU", "ANNCSU street numbers", {
++  ...AGID,
++  misura: "Civici dell'archivio nazionale (ANNCSU).",
++});
++alias("Pendolarismo netto", "Net commuting", {
++  ...AGID,
++  misura: "Saldo dei flussi di pendolarismo.",
++});
++alias("Elevazione media", "Mean elevation", {
++  ...AGID,
++  misura: "Elevazione media del territorio comunale.",
++});
++alias("Veicoli", "Vehicles", {
++  ...AGID,
++  misura: "Parco veicolare (ACI via Cruscotto Italia).",
++});
++alias("Terziario", "Tertiary sector", {
++  ...AGID,
++  misura: "Quota o addetti del terziario.",
++});
++alias("Alunni", "Pupils", MIUR);
++alias("Temperatura", "Temperature", METEO);
++alias("Allerta meteo", "Weather alert", ALLERTE);
++alias("Quotazione OMI", "OMI listing", OMI);
++alias("Defibrillatori", "Defibrillators", DAE);
++alias("IRPEF", "Personal income tax", DVNS);
++
++export function kpiMetadatoForLabel(label: string): KpiMetadato | undefined {
++  return BY_LABEL[label];
++}
++
++/**
++ * Etichette che compaiono in dashboard e non hanno una voce in questa mappa.
++ * Non inventare metadati per queste: restano senza blocco didattico.
++ * Elenco noto (moduli opzionali / etichette locali): posti barca, balneazione ARPAT,
++ * treni, GTFS, allerte SIR regionali, eventi comunali, acqua SII, webcam porto.
++ */
++export const KPI_SENZA_METADATO: string[] = [
++  "Posti barca",
++  "Qualità acque di bagno",
++  "Treni in stazione",
++  "Fermate TPL",
++  "Allerta SIR",
++  "Eventi oggi",
++  "Fontanelle",
++];
+diff --git a/src/lib/mcp.ts b/src/lib/mcp.ts
+index 45b0945..e5adff4 100644
+--- a/src/lib/mcp.ts
++++ b/src/lib/mcp.ts
+@@ -81,14 +81,14 @@ export async function callMcpToolHttp<T>(
+   return extractJson<T>(obj.result ?? {});
+ }
+ 
+-export async function fetchComuneKpi() {
++export async function fetchComuneKpi(istatCode: string = ISTAT_CODE) {
+   try {
+     return await callMcpTool<Record<string, unknown>>("comune_kpi", {
+-      istat_code: ISTAT_CODE,
++      istat_code: istatCode,
+     });
+   } catch {
+     return callMcpToolHttp<Record<string, unknown>>("comune_kpi", {
+-      istat_code: ISTAT_CODE,
++      istat_code: istatCode,
+     });
+   }
+ }
+-- 
+2.43.0
+
