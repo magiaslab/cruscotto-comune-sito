@@ -2,7 +2,7 @@
   "name": "cruscotto-comune-sito",
   "version": "0.2.0",
   "private": true,
-  "description": "Sito di Cruscotto Comune: i cruscotti già online e la guida per farne uno. Il template è magiaslab/cruscotto-comune.",
+  "description": "Sito di Cruscotto Comune: dashboard di dati aperti comunali, pronte da usare e facili da replicare. Il template è magiaslab/cruscotto-comune.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

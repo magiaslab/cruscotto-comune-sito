@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description: clipMetaDescription(
-    `Qui trovi i cruscotti di dati aperti già online e quello che serve per crearne uno dedicato al tuo comune. Oggi ${fraseCruscottiEsistenti()}. Progetto indipendente, non ufficiale.`,
+    `Dashboard di dati aperti per piccoli e medi comuni italiani, pronte da usare e facili da replicare. Oggi ${fraseCruscottiEsistenti()}. Progetto indipendente, non ufficiale.`,
   ),
   icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
 };

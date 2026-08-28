@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Cruscotto Comune",
   /** Sottotitolo in testata: cosa può fare chi arriva sul sito. */
-  tagline: "I cruscotti già online e come farne uno",
+  tagline: "I cruscotti dati comunali aperti – pronti da usare e facili da replicare",
   url: "https://www.cruscottocomune.it",
   /** Template da cui partire per un nuovo comune. */
   github: "https://github.com/magiaslab/cruscotto-comune",
