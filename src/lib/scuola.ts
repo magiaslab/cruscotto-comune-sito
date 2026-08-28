@@ -5,7 +5,7 @@
  */
 
 import type { Metadata } from "next";
-import { clipMetaDescription, wordCount } from "@/lib/meta";
+import { clipMetaDescription, OG_IMAGE, wordCount } from "@/lib/meta";
 import { AUTHOR, SITE } from "@/lib/product";
 import { LEZIONI as LEZIONI_SRC } from "@/lib/scuola-lezioni";
 import classiJson from "@/data/scuola/classi.json";
@@ -698,13 +698,13 @@ export function scuolaPageMetadata(opts: {
       url,
       locale: "it_IT",
       type: "website",
-      images: [{ url: "/og-image.jpg" }],
+      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: `${opts.title} | ${SITE.name}`,
       description,
-      images: ["/og-image.jpg"],
+      images: [OG_IMAGE.url],
     },
     robots: { index, follow: index },
   };
