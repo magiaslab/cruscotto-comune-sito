@@ -1,30 +1,15 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { SkipLink } from "@/components/SkipLink";
-import { StemmaMark } from "@/components/StemmaMark";
-import { GitHubMark } from "@/components/BrandMarks";
+import { SiteHeader } from "@/components/SiteHeader";
 import {
   AUTHOR,
   getDemoLabel,
   getDemoUrl,
   getProductName,
-  getProductTagline,
-  getTemplateForkUrl,
   getTemplateGithubUrl,
-  isSostieniEnabled,
 } from "@/lib/product";
 import { PROJECT_ORIGIN } from "@/lib/project-origin";
-
-const NAV: { href: string; label: string }[] = [
-  { href: "/progetto", label: "Progetto" },
-  { href: "/comuni", label: "Comuni" },
-  { href: "/riusa", label: "Riuso" },
-  { href: "/scuola", label: "Scuola" },
-  { href: "/sezioni", label: "Sezioni" },
-];
 
 const FOOTER: { titolo: string; voci: { href: string; label: string }[] }[] = [
   {
@@ -57,98 +42,14 @@ const FOOTER: { titolo: string; voci: { href: string; label: string }[] }[] = [
 ];
 
 export function LandingShell({ children }: { children: ReactNode }) {
-  const pathname = usePathname() || "/";
   const product = getProductName();
   const github = getTemplateGithubUrl();
-  const fork = getTemplateForkUrl();
   const demo = getDemoUrl();
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--background)]">
       <SkipLink />
-      <header className="border-b border-[var(--pa-border)] bg-white">
-        <div className="bg-[var(--pa-primary)] text-white">
-          <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-1 px-4 py-2 text-xs sm:flex-row sm:items-center sm:px-6 sm:text-sm">
-            <p className="m-0 font-semibold leading-snug">
-              Progetto indipendente, non ufficiale. Non affiliato ad AgID, al
-              Governo italiano o a un ente locale.
-            </p>
-            <div className="flex items-center gap-3">
-              {isSostieniEnabled() ? (
-                <Link
-                  href="/sostieni"
-                  className="inline-flex min-h-11 items-center text-white underline-offset-2 hover:underline"
-                >
-                  Supporto
-                </Link>
-              ) : null}
-              <a
-                href={`mailto:${AUTHOR.email}`}
-                className="inline-flex min-h-11 items-center text-white underline-offset-2 hover:underline"
-              >
-                Contatti
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
-          <Link
-            href="/"
-            className="flex min-h-11 items-center gap-3 text-inherit no-underline"
-            aria-label={`${product} — home`}
-          >
-            <StemmaMark width={36} height={45} className="h-9 w-auto" />
-            <span className="min-w-0">
-              <span className="block text-base font-bold leading-tight text-[var(--pa-ink)] sm:text-lg">
-                {product}
-              </span>
-              <span className="block text-xs text-[var(--pa-muted)]">
-                {getProductTagline()}
-              </span>
-            </span>
-          </Link>
-          <nav
-            aria-label="Pagine principali"
-            className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-1 sm:gap-2"
-          >
-            {NAV.map((item) => {
-              const active =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold no-underline ${
-                    active
-                      ? "bg-[var(--pa-surface-soft)] text-[var(--pa-primary)]"
-                      : "text-[var(--pa-ink)] hover:bg-[var(--pa-surface-soft)]"
-                  }`}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-            <a
-              href={demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:bg-[var(--pa-surface-soft)]"
-            >
-              San Vincenzo
-            </a>
-            <a
-              href={fork}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg bg-[var(--pa-primary)] px-3 text-sm font-bold text-white no-underline hover:bg-[var(--pa-primary-hover)]"
-            >
-              <GitHubMark size={16} />
-              Copia su GitHub
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
       <main id="contenuto-principale" className="flex-1">
         {children}
       </main>

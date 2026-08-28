@@ -1,21 +1,22 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Link from "next/link";
-import { Landmark, LayoutGrid, Map, Sparkles } from "lucide-react";
-import { GitHubMark, VercelMark } from "@/components/BrandMarks";
+import { Coffee, Landmark, LayoutGrid, Sparkles } from "lucide-react";
+import { GitHubMark } from "@/components/BrandMarks";
 import {
   countCruscottiEsistentiInLettere,
   getAltriCruscotti,
   getPrimoCruscotto,
 } from "@/lib/cruscotti-rete";
 import { FONTI } from "@/lib/fonti";
-import { PROJECT_ORIGIN } from "@/lib/project-origin";
 import {
+  AUTHOR,
+  SITE,
   getDemoLabel,
-  getDemoUrl,
   getProductName,
+  getProductTagline,
   getTemplateForkUrl,
-  getVercelDeployUrl,
+  getTemplateGithubUrl,
 } from "@/lib/product";
 import { SEZIONI_AMBITO_LABEL, sezioniInHome } from "@/lib/sezioni";
 
@@ -30,13 +31,15 @@ function Cta({
 }: {
   href: string;
   children: React.ReactNode;
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "ghost" | "coffee";
   external?: boolean;
 }) {
   const cls =
     variant === "primary"
       ? "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[var(--pa-primary)] px-4 text-sm font-bold text-white no-underline hover:bg-[var(--pa-primary-hover)]"
-      : "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[var(--pa-border)] bg-white px-4 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:border-[var(--pa-primary)]";
+      : variant === "coffee"
+        ? "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#FFDD00] px-4 text-sm font-bold text-[#0d0c22] no-underline hover:brightness-95"
+        : "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[var(--pa-border)] bg-white px-4 text-sm font-semibold text-[var(--pa-ink)] no-underline hover:border-[var(--pa-primary)]";
   if (external) {
     return (
       <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
@@ -53,10 +56,17 @@ function Cta({
 
 export function LandingHome() {
   const product = getProductName();
-  const demo = getDemoUrl();
   const fork = getTemplateForkUrl();
+  const github = getTemplateGithubUrl();
   const primo = getPrimoCruscotto();
   const altri = getAltriCruscotti();
+  const comuniNomi = [primo, ...altri].map((c) =>
+    c.status === "in_sviluppo" ? `${c.nome} (in anteprima)` : c.nome,
+  );
+  const comuniElenco =
+    comuniNomi.length <= 1
+      ? (comuniNomi[0] ?? "")
+      : `${comuniNomi.slice(0, -1).join(", ")} e ${comuniNomi.at(-1)}`;
 
   return (
     <>
@@ -65,89 +75,160 @@ export function LandingHome() {
           <h1 className="mb-4 mt-0 max-w-3xl text-3xl font-bold leading-tight text-[var(--pa-ink)] sm:text-5xl">
             {product}
           </h1>
-          <p className="mb-6 max-w-2xl text-lg leading-relaxed text-[var(--pa-muted)] sm:text-xl">
-            Qui trovi i cruscotti di dati aperti già online e quello che serve
-            per crearne uno dedicato al tuo comune. Ho iniziato da {primo.nome},
-            mettendo insieme dati che esistevano già ma stavano sparsi tra
-            portali diversi. Poi ho preparato un template pulito, senza i dati
-            di quel territorio, così altri possono fare lo stesso.
+          <p className="mb-4 max-w-2xl text-lg leading-relaxed text-[var(--pa-muted)] sm:text-xl">
+            {getProductTagline()}
+          </p>
+          <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)] sm:text-base">
+            {product} è un progetto indipendente e open source che mostra
+            dashboard di dati aperti per piccoli e medi comuni italiani, con
+            informazioni utili su servizi, ambiente, territorio e molto altro.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Cta href="/comuni">Vedi i cruscotti</Cta>
-            <Cta href="/guida" variant="ghost">
-              Apri la guida
-            </Cta>
-            <Cta href={fork} variant="ghost" external>
+            <Cta href="/guida">Inizia subito</Cta>
+            <Cta href={github} variant="ghost" external>
               <GitHubMark size={16} />
-              Crea una copia su GitHub
+              Scopri il template
             </Cta>
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <h2 className="mb-4 text-2xl font-bold text-[var(--pa-ink)]">
-          Come è andata
+        <h2 className="mb-6 text-2xl font-bold text-[var(--pa-ink)]">
+          Cosa puoi trovare qui
         </h2>
-        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)] sm:text-base">
-          Cruscotto San Vincenzo è il progetto completo, sul suo dominio. Lo
-          consulti come esempio: farmacie di turno, treni, rifiuti, porto, chi
-          siede in giunta. Per un comune nuovo si parte dal template su GitHub,
-          una versione senza spiagge, webcam o path della Toscana copiati per
-          sbaglio.
-        </p>
-        <p className="mb-0 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)] sm:text-base">
-          Ogni installazione è dedicata a un singolo comune. I numeri nazionali
-          arrivano da Cruscotto Italia (AgID) con il codice ISTAT. Il resto —
-          porto, balneazione, treni, orari bus in formato GTFS, bot Telegram —
-          si attiva solo se quel territorio ce l’ha. Il credito ad Alessandro
-          Cipriani, a San Vincenzo e a Francesco Piero Paolicelli (Piersoft)
-          per Cruscotto Italia resta. Il disclaimer «non ufficiale» anche. I
-          testi da copiare sono in{" "}
-          <Link href="/menzioni">Menzioni</Link>.
-        </p>
+        <ul className="m-0 grid list-none gap-4 p-0 md:grid-cols-3">
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <h3 className="mb-2 mt-0 text-lg font-bold">Cruscotti già online</h3>
+            <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+              Dashboard già funzionanti per {countCruscottiEsistentiInLettere()}{" "}
+              comuni: {comuniElenco}.
+            </p>
+            <p className="mb-0 mt-3">
+              <Link href="/comuni" className="text-sm font-semibold">
+                Vedi i cruscotti →
+              </Link>
+            </p>
+          </li>
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <h3 className="mb-2 mt-0 text-lg font-bold">Un template da copiare</h3>
+            <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+              Una dashboard vuota, da copiare su GitHub, per costruire il
+              cruscotto del tuo comune. Non si copia un cruscotto già esistente.
+            </p>
+            <p className="mb-0 mt-3">
+              <a
+                href={fork}
+                className="text-sm font-semibold"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Copia su GitHub →
+              </a>
+            </p>
+          </li>
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <h3 className="mb-2 mt-0 text-lg font-bold">Fonti ufficiali</h3>
+            <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+              Una raccolta di fonti dati ufficiali. Gli indicatori nazionali si
+              aggiornano da soli, ogni giorno.
+            </p>
+            <p className="mb-0 mt-3">
+              <Link href="/fonti" className="text-sm font-semibold">
+                Elenco delle fonti →
+              </Link>
+            </p>
+          </li>
+        </ul>
       </section>
 
       <section className="border-y border-[var(--pa-border)] bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-          <h2 className="mb-2 text-2xl font-bold text-[var(--pa-ink)]">
-            Chi c’è già
+          <h2 className="mb-6 text-2xl font-bold text-[var(--pa-ink)]">
+            Perché usare {product}
           </h2>
-          <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
-            Oggi {countCruscottiEsistentiInLettere()} comuni: {primo.nome}
-            {altri.length > 0
-              ? ` e ${altri
-                  .map((c) =>
-                    c.status === "in_sviluppo"
-                      ? `${c.nome} (ancora in anteprima)`
-                      : c.nome,
-                  )
-                  .join(" e ")}`
-              : ""}
-            . Se ne hai fatto uno, segnalalo dalla pagina Comuni. Se hai
-            un’idea su questo sito, c’è{" "}
-            <Link href="/suggerisci">Suggerisci</Link>. Per l’ente, testi già
-            scritti nel{" "}
-            <Link href="/kit-ente">kit</Link>.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Cta href="/comuni">Vedi i cruscotti</Cta>
-            <Cta href="/kit-ente" variant="ghost">
-              Kit per l’ente
-            </Cta>
-            <Cta href="/novita" variant="ghost">
-              Novità
-            </Cta>
-          </div>
+          <ul className="m-0 grid list-none gap-4 p-0 md:grid-cols-3">
+            <li className="rounded-xl border border-[var(--pa-border)] p-5">
+              <h3 className="mb-2 mt-0 text-lg font-bold">Dati dalle fonti ufficiali</h3>
+              <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+                Aggregati e filtrati direttamente dalle fonti, senza bisogno di
+                programmazione.
+              </p>
+            </li>
+            <li className="rounded-xl border border-[var(--pa-border)] p-5">
+              <h3 className="mb-2 mt-0 text-lg font-bold">Facili da consultare</h3>
+              <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+                Dashboard pensate per cittadini, amministratori e chi vuole
+                capire il territorio.
+              </p>
+            </li>
+            <li className="rounded-xl border border-[var(--pa-border)] p-5">
+              <h3 className="mb-2 mt-0 text-lg font-bold">Indipendente e aperto</h3>
+              <p className="m-0 text-sm leading-relaxed text-[var(--pa-muted)]">
+                Un progetto trasparente, open source, tenuto su da {AUTHOR.name}.
+              </p>
+            </li>
+          </ul>
         </div>
       </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <h2 className="mb-3 text-2xl font-bold text-[var(--pa-ink)]">
+          Come funziona
+        </h2>
+        <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
+          Si parte dal template su GitHub, non da {getDemoLabel()} né da questo
+          sito. Servono un account GitHub, uno su Vercel e il codice ISTAT del
+          comune.
+        </p>
+        <ol className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">1</p>
+            <h3 className="mb-2 mt-1 text-lg font-bold">Scegli il template</h3>
+            <p className="m-0 text-sm text-[var(--pa-muted)]">
+              Aprilo su GitHub e crea una copia sul tuo account.
+            </p>
+          </li>
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">2</p>
+            <h3 className="mb-2 mt-1 text-lg font-bold">Personalizza</h3>
+            <p className="m-0 text-sm text-[var(--pa-muted)]">
+              In <code>config/comune.json</code> metti nome, ISTAT, coordinate e
+              le mappe del tuo comune.
+            </p>
+          </li>
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">3</p>
+            <h3 className="mb-2 mt-1 text-lg font-bold">Pubblica</h3>
+            <p className="m-0 text-sm text-[var(--pa-muted)]">
+              Collegalo a Vercel: hosting gratuito, dopo pochi minuti hai un
+              indirizzo <code>.vercel.app</code>.
+            </p>
+          </li>
+          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
+            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">4</p>
+            <h3 className="mb-2 mt-1 text-lg font-bold">Si aggiorna da sola</h3>
+            <p className="m-0 text-sm text-[var(--pa-muted)]">
+              La dashboard riprende i dati dalle fonti ufficiali ogni giorno.
+            </p>
+          </li>
+        </ol>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Cta href="/guida">Inizia subito</Cta>
+          <Cta href="/riusa" variant="ghost">
+            Guida al riuso
+          </Cta>
+        </div>
+      </section>
+
+      <SezioniTeaser />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <h2 className="mb-2 text-2xl font-bold text-[var(--pa-ink)]">
           Da dove arrivano i numeri
         </h2>
         <p className="mb-8 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
-          Compili il codice ISTAT e le coordinate: gli indicatori di AgID
+          Compili il codice ISTAT e le coordinate: gli indicatori nazionali
           arrivano da soli. Il resto è un interruttore nel file del comune.
         </p>
         <div className="grid gap-8 md:grid-cols-2">
@@ -171,7 +252,7 @@ export function LandingHome() {
           <div>
             <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-[var(--pa-ink)]">
               <Sparkles className="h-5 w-5 text-[var(--pa-warning)]" aria-hidden />
-                Se il comune ce l’ha
+              Se il comune ce l’ha
             </h3>
             <ul className="m-0 list-none space-y-2 p-0">
               {OPZIONALI.map((f) => (
@@ -198,87 +279,19 @@ export function LandingHome() {
         </p>
       </section>
 
-      <SezioniTeaser />
-
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <h2 className="mb-3 text-2xl font-bold text-[var(--pa-ink)]">
-          Se vuoi farne uno
-        </h2>
-        <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
-          Non serve scrivere codice. Serve un account GitHub, uno su Vercel
-          (entri con GitHub) e il codice ISTAT del comune. Per la versione
-          base non ci sono variabili d’ambiente o chiavi API da configurare:
-          l’accesso a Cruscotto Italia è pubblico.
-        </p>
-        <ol className="m-0 grid list-none gap-4 p-0 md:grid-cols-3">
-          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
-            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">1</p>
-            <h3 className="mb-2 mt-1 text-lg font-bold">Copia e pubblica</h3>
-            <p className="m-0 text-sm text-[var(--pa-muted)]">
-              Crea una copia del template sul tuo account GitHub (il cosiddetto
-              fork) e collegalo a Vercel. Dopo qualche minuto hai un indirizzo
-              <code className="ml-1">.vercel.app</code>.
-            </p>
-          </li>
-          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
-            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">2</p>
-            <h3 className="mb-2 mt-1 text-lg font-bold">Il file del comune</h3>
-            <p className="m-0 text-sm text-[var(--pa-muted)]">
-              In <code>config/comune.json</code> metti nome, ISTAT, coordinate,
-              stemma. Disattiva i moduli che non ti servono: un comune interno
-              non deve mostrare il porto.
-            </p>
-          </li>
-          <li className="rounded-xl border border-[var(--pa-border)] bg-white p-5">
-            <p className="m-0 text-sm font-bold text-[var(--pa-primary)]">3</p>
-            <h3 className="mb-2 mt-1 text-lg font-bold">Controlla i numeri</h3>
-            <p className="m-0 text-sm text-[var(--pa-muted)]">
-              Apri <code>/api/kpi</code> sul tuo sito: deve comparire il tuo
-              comune. Se programmi, in locale puoi aggiornare defibrillatori e
-              quotazioni immobiliari con gli script del template.
-            </p>
-          </li>
-        </ol>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Cta href="/riusa">Apri la guida al riuso</Cta>
-          <Cta href="/guida" variant="ghost">
-            Versione breve
-          </Cta>
-          <Cta href={getVercelDeployUrl()} variant="ghost" external>
-            <VercelMark size={16} />
-            Pubblica su Vercel
-          </Cta>
-        </div>
-      </section>
-
-      <section className="border-t border-[var(--pa-border)] bg-white">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-2">
-          <div>
-            <h2 className="mb-3 flex items-center gap-2 text-2xl font-bold text-[var(--pa-ink)]">
-              <Map className="h-6 w-6 text-[var(--pa-primary)]" aria-hidden />
-              Il primo cruscotto
-            </h2>
-            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
-              {getDemoLabel()} resta indipendente sul proprio dominio. È il
-              progetto finito da cui è nata l’idea del template: si consulta,
-              non si copia per farne un altro comune.
-            </p>
-            <Cta href={demo} variant="ghost" external>
-              Apri {getDemoLabel()}
-            </Cta>
-          </div>
-          <div>
-            <h2 className="mb-3 text-2xl font-bold text-[var(--pa-ink)]">
-              Il template
-            </h2>
-            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
-              Una dashboard vuota: dopo la copia su GitHub, con ISTAT e
-              coordinate compilati, diventa il cruscotto del tuo comune. Questo
-              sito spiega il progetto e raccoglie quelli già nati.
-            </p>
-            <Cta href={fork} variant="ghost" external>
-              <GitHubMark size={16} />
-              Crea una copia su GitHub
+      <section className="border-y border-[var(--pa-border)] bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <h2 className="mb-3 text-2xl font-bold text-[var(--pa-ink)]">
+            Vuoi partecipare?
+          </h2>
+          <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)] sm:text-base">
+            Hai già realizzato un cruscotto o vuoi segnalarne uno? Scrivici e
+            aiutaci a far crescere questa community di dati aperti.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Cta href="/comuni">Segnala un cruscotto</Cta>
+            <Cta href="/suggerisci" variant="ghost">
+              Lascia un suggerimento
             </Cta>
           </div>
         </div>
@@ -286,15 +299,21 @@ export function LandingHome() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <h2 className="mb-3 text-2xl font-bold text-[var(--pa-ink)]">
-          Se ti è utile
+          Supporta {product}
         </h2>
-        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)]">
-          Hosting, compute e tempo li pago io, {PROJECT_ORIGIN.author.name}. Un
-          caffè su Buy Me a Coffee aiuta a tenere online il template e San
-          Vincenzo. Se fai un cruscotto tuo, usa il tuo indirizzo Buy Me a
-          Coffee, non il mio.
+        <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--pa-muted)] sm:text-base">
+          Il progetto è gestito e finanziato personalmente da {AUTHOR.name}. Se
+          ti piace e lo trovi utile, puoi offrire un caffè.
         </p>
-        <Cta href="/sostieni">Pagina Supporto</Cta>
+        <div className="flex flex-wrap gap-3">
+          <Cta href={SITE.bmc} variant="coffee" external>
+            <Coffee size={18} aria-hidden />
+            Offri un caffè
+          </Cta>
+          <Cta href="/sostieni" variant="ghost">
+            Pagina Supporto
+          </Cta>
+        </div>
       </section>
     </>
   );
